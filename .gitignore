@@ -24,4 +24,10 @@
 hs_err_pid*
 
 .idea/
+.metadata/
+.settings/
+out/
+bin/
+.classpath
+.project
 TDT4145 - Databaseproject.iml
