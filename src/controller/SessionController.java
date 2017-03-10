@@ -157,9 +157,12 @@ public class SessionController {
 	    		Integer ps = Integer.parseInt(personalShape);
 	    		Integer prest = Integer.parseInt(prestation);
 	    		
-	    		Integer v = Integer.parseInt(viewers);
-				Integer t = null;
-				if (temp != ""){
+	    		Integer v = null;
+                Integer t = null;
+                if (inOrOut == "in"){
+                    v = Integer.parseInt(viewers);
+                }
+				else if (inOrOut == "out"){
 					t = Integer.parseInt(temp);
 				}
 
