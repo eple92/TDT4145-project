@@ -20,8 +20,8 @@ public class Database {
 	static final String DB_URL = "jdbc:mysql://localhost/WorkoutDiary";
 		
 	// Database credentials
-	static final String USER = "username";
-	static final String PASS = "password";
+	static final String USER = "root";
+	static final String PASS = "sn3gleYngel!";
 	
 	private final String dbName = "WorkoutDiary";
 
