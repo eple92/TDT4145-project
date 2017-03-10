@@ -38,7 +38,10 @@ public class InputController {
 	    		System.out.println("Nothing here yet");
 	    	} else if (input.equals("3")) {
 	    		dbController.showTable(Session.selectAllQuery, "session");
-	    	}
+	    	} else if (input.equals("4")) {
+				System.out.println("thanks for using workoutdiary");
+				System.exit(0);
+			}
 			
 		} catch (IOException e) {
 			System.out.println("Error with reading line");
