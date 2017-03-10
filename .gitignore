@@ -31,3 +31,5 @@ bin/
 .classpath
 .project
 TDT4145 - Databaseproject.iml
+TDT4145-project.iml
+resources/config.properties

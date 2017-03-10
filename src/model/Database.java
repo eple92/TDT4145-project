@@ -1,5 +1,8 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Database {
 
@@ -17,17 +21,43 @@ public class Database {
 	
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/WorkoutDiary";
+	private String DB_URL = "jdbc:mysql://localhost/workoutdiary";
 		
 	// Database credentials
-	static final String USER = "root";
-	static final String PASS = "sn3gleYngel!";
+	private String USER = "user";
+	private String PASS = "password";
 	
-	private final String dbName = "WorkoutDiary";
+	private final String dbName = "workoutdiary";
 
 	// Create a database object
 	public Database() {
-		
+
+        Properties prop = new Properties();
+        InputStream input = null;
+        System.out.println(System.getProperty("user.dir"));
+
+        try {
+
+            input = new FileInputStream("resources/config.properties");
+
+            prop.load(input);
+
+            DB_URL = prop.getProperty("dburl");
+            USER = prop.getProperty("dbuser");
+            PASS = prop.getProperty("dbpass");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
 		try {
 
 
