@@ -90,12 +90,14 @@ public class SessionController {
     			System.out.println("How was the airconditioning?");
     			airCond = br.readLine();
         		System.out.println("How many viewers?");
-        		viewers= br.readLine();		
+        		viewers= br.readLine();
+				inOrOut = "in";
     		} else if (input.equals("out")) {
     			System.out.println("How was the temperature?");
     			temp = br.readLine();
         		System.out.println("How was the weather?");
         		weather= br.readLine();
+				inOrOut = "out";
     		} else {
     			System.out.println("That is not a valid option. In or out?");
     		}
@@ -156,8 +158,11 @@ public class SessionController {
 	    		Integer prest = Integer.parseInt(prestation);
 	    		
 	    		Integer v = Integer.parseInt(viewers);
-	    		Integer t = Integer.parseInt(temp);
-	    
+				Integer t = null;
+				if (temp != ""){
+					t = Integer.parseInt(temp);
+				}
+
 	    		if ((start != null) & (end != null)) {
 	    			// If in
 	    			
