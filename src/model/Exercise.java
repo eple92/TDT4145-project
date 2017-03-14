@@ -11,12 +11,8 @@ public class Exercise {
 	
 	private StringProperty name;
 	private StringProperty description;
-	
+
 	MainApp mainApp;
-	public static final String createTableQuery = "CREATE TABLE IF NOT EXISTS Exercise ("+ 
-			"exerciseName VARCHAR(20) NOT NULL PRIMARY KEY, " +
-			"description TEXT, " +
-			"type VARCHAR(4));";
 			
 	public static final String selectAllQuery = "SELECT * FROM Exercise;";
 

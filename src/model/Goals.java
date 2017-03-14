@@ -18,22 +18,6 @@ public class Goals {
     protected SimpleIntegerProperty distance;
     protected SimpleIntegerProperty duration;
 
-    public static final String createTableQuery = "CREATE TABLE IF NOT EXISTS Goals ( " +
-            "startDate DATETIME NOT NULL, " +
-             "endDate DATETIME NOT NULL, " +
-            "exerciseName VARCHAR(20) NOT NULL, " +
-    "weight INT(3), " +
-    "rep INT(2), " +
-    "exerciseSet INT(2), " +
-    "distance INT(3), " +
-    "duration INT(3), " +
-    "FOREIGN KEY (exerciseName) " +
-        "REFERENCES Exercise (exerciseName) " +
-        "ON DELETE CASCADE " +
-        "ON UPDATE CASCADE, " +
-        "PRIMARY KEY (startDate, endDate, exerciseName)" +
-    ");";
-
     public Goals (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
         this.exersiceName = new SimpleStringProperty(exersiceName);
         this.sessionStartDateAndTime = new SimpleObjectProperty<Date>(sessionStartDateAndTime);

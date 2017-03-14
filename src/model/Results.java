@@ -21,25 +21,6 @@ public class Results {
     protected SimpleIntegerProperty distance;
     protected SimpleIntegerProperty duration;
 
-    public static final String createTableQuery = "CREATE TABLE IF NOT EXISTS Results ( " +
-            "resultID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-            "exerciseName VARCHAR(20) NOT NULL, " +
-    "sessionStartDateAndTime DATETIME NOT NULL, " +
-    "weight INT(3), " +
-    "rep INT(2), " +
-    "exerciseSet INT(2), " +
-    "distance INT(3), " +
-    "duration INT(3), " +
-    "FOREIGN KEY (exerciseName) " +
-        "REFERENCES Exercise (exerciseName) " +
-        "ON DELETE NO ACTION " +
-        "ON UPDATE CASCADE, " +
-    "FOREIGN KEY (sessionStartDateAndTime) " +
-        "REFERENCES Session (startDateAndTime) " +
-        "ON DELETE RESTRICT " +
-        "ON UPDATE CASCADE " +
-    ");";
-
     public Results (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
         this.exersiceName = new SimpleStringProperty(exersiceName);
         this.sessionStartDateAndTime = new SimpleObjectProperty<Date>(sessionStartDateAndTime);
