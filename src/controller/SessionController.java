@@ -14,8 +14,8 @@ import model.Session;
 
 public class SessionController {
 	
-	SimpleDateFormat formatter = new SimpleDateFormat("dd.mm.yy HH:mm:ss");
-	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.mm.yy");
+	SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
 	SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	private BufferedReader br;
 
@@ -182,6 +182,7 @@ public class SessionController {
 	    				Indoor indoor = new Indoor(start, end, ps, prest, note, airCond, v);
 	    				String sessionInsertQuery = indoor.getInsertQuery();
 	    				String indoorInsertQuery = indoor.getIndoorInserQuery();
+						System.out.println(indoor.getStartDate());
 	    				dbController.insertAction(sessionInsertQuery);
 	    				dbController.insertAction(indoorInsertQuery);
 	    				
