@@ -33,7 +33,7 @@ public class Results {
 
     public String getInsertQuery() {
         String q = "Insert into Results (exersiceName, sessionStartDateAndTIme, weight, rep, exersiceSet, distance, duration) " +
-                "values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
+                "Values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
                 getRep() + ", " + getExersiceSet() + ", " + getDistance() + ", " + getDuration() + ");";
         return q;
 
