@@ -22,7 +22,7 @@ public class Outdoor extends Session {
 	}
 	
 	public String getOutdoorInserQuery() {
-		String q = "INSERT INTO Outdoor VALUES ('" + 
+		String q = "INSERT INTO outdoorsession VALUES ('" +
 				super.getStartDateString() + "', " + temperature + ", '" + weather+ "');";
 		
 		return q;
