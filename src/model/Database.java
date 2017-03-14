@@ -21,12 +21,13 @@ public class Database {
 	
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private String DB_URL = "jdbc:mysql://localhost/workoutdiary";
-		
+    static final String HOST_URL = "jdbc:mysql://localhost/";
+	private String DB_URL = "jdbc:mysql://localhost/";
+
 	// Database credentials
 	private String USER = "user";
 	private String PASS = "password";
-	
+
 	private final String dbName = "workoutdiary";
 
 	// Create a database object
@@ -60,7 +61,6 @@ public class Database {
 
 		try {
 
-
 			try {
 				// Register JDBC driver in program 
 				Class.forName(JDBC_DRIVER).newInstance();
@@ -71,16 +71,20 @@ public class Database {
 			}
 		
 			// Open a connection
-			System.out.println("Opening a connetion");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-	
-			System.out.println("Creating the database");
-			String query = "CREATE DATABASE IF NOT EXISTS " + dbName + ";";
-			pstmt = conn.prepareStatement(query);
-			pstmt.executeUpdate();
+			System.out.println("Opening a connection");
+			conn = DriverManager.getConnection(HOST_URL, USER, PASS);
+
+            System.out.println("Creating the database");
+            String query = "CREATE DATABASE IF NOT EXISTS " + dbName + ";";
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            createTables();
 			
-			noReturnAction(Session.createTableQuery);
-			noReturnAction(Exercise.createTableQuery);
+			//noReturnAction(Session.createTableQuery);
+			//noReturnAction(Exercise.createTableQuery);
 			
 		} catch(SQLException se){
 			//Handle errors for DriverManager.getConnection() (JDBC)
@@ -143,7 +147,7 @@ public class Database {
 	// For select
 	public ArrayList<String> select(String query, String type) {
 		System.out.println("Query in select: " + query);
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 		
 		try {
 			// Open a connection
@@ -182,7 +186,7 @@ public class Database {
 	}
 	
 	private ArrayList<String> rsToList(ResultSet rs, String type) throws SQLException {
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<>();
 	
 		if (rs == null) {
 			System.out.println("ERROR: RS is null");
@@ -201,5 +205,219 @@ public class Database {
 			}
 		}
 		return result;
+	}
+
+	private void createTables(){
+		try{
+
+
+            String query = "CREATE TABLE IF NOT EXISTS Session (" +
+                    "    startDateAndTime DATETIME NOT NULL PRIMARY KEY," +
+                    "    endDateAndTime DATETIME NOT NULL UNIQUE," +
+                    "    inOrOut VARCHAR(3)," +
+                    "    personalShape INT(1)," +
+                    "    prestation INT(1)," +
+                    "    note VARCHAR(255)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS OutdoorSession (" +
+                    "    outdoorStartDateAndTime DATETIME NOT NULL PRIMARY KEY,\n" +
+                    "    weather VARCHAR(20)," +
+                    "    temperature INT(2)," +
+                    "    FOREIGN KEY (outdoorStartDateAndTime)" +
+                    "    REFERENCES Session (startDateAndTime)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS IndoorSession (" +
+                    "    indoorStartDateAndTime DATETIME NOT NULL PRIMARY KEY," +
+                    "    aircondition VARCHAR(20)," +
+                    "    viewers INT(3)," +
+                    "    FOREIGN KEY (indoorStartDateAndTime)" +
+                    "        REFERENCES Session (startDateAndTime)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS Exercise (" +
+                    "    exerciseName VARCHAR(20) NOT NULL PRIMARY KEY," +
+                    "    description TEXT" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS Alternatives (" +
+                    "    exercise VARCHAR(20) NOT NULL," +
+                    "    alternative VARCHAR(20) NOT NULL," +
+                    "    FOREIGN KEY (exercise)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (alternative)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    PRIMARY KEY (exercise , alternative)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS SessionExercises (" +
+                    "    exerciseName VARCHAR(20) NOT NULL," +
+                    "    sessionStartDateAndTime DATETIME NOT NULL," +
+                    "    FOREIGN KEY (exerciseName)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (sessionStartDateAndTime)" +
+                    "        REFERENCES Session (startDateAndTime)" +
+                    "        ON DELETE RESTRICT" +
+                    "        ON UPDATE CASCADE," +
+                    "    PRIMARY KEY (exerciseName , sessionStartDateAndTime)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS SessionDrafts (" +
+                    "    draftName VARCHAR(20) NOT NULL PRIMARY KEY" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS ExercisesInDraft (" +
+                    "    draftName VARCHAR(20) NOT NULL," +
+                    "    exerciseName VARCHAR(20) NOT NULL," +
+                    "    FOREIGN KEY (draftName)" +
+                    "        REFERENCES SessionDrafts (draftName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (exerciseName)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    PRIMARY KEY (draftName, exerciseName)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS Results (" +
+                    "    resultID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                    "    exerciseName VARCHAR(20) NOT NULL," +
+                    "    sessionStartDateAndTime DATETIME NOT NULL," +
+                    "    weight INT(3)," +
+                    "    rep INT(2)," +
+                    "    exerciseSet INT(2)," +
+                    "    distance INT(3)," +
+                    "    duration INT(3)," +
+                    "    FOREIGN KEY (exerciseName)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE NO ACTION" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (sessionStartDateAndTime)" +
+                    "        REFERENCES Session (startDateAndTime)" +
+                    "        ON DELETE RESTRICT" +
+                    "        ON UPDATE CASCADE" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS Goals (" +
+                    "    startDate DATETIME NOT NULL," +
+                    "    endDate DATETIME NOT NULL," +
+                    "    exerciseName VARCHAR(20) NOT NULL," +
+                    "    weight INT(3)," +
+                    "    rep INT(2)," +
+                    "    exerciseSet INT(2)," +
+                    "    distance INT(3)," +
+                    "    duration INT(3)," +
+                    "    FOREIGN KEY (exerciseName)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "\tPRIMARY KEY (startDate, endDate, exerciseName)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS Groups (" +
+                    "\tgroupName VARCHAR(20) PRIMARY KEY" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS GroupsInGroups (" +
+                    "    parentGroup VARCHAR(20) NOT NULL," +
+                    "    childGroup VARCHAR(20) NOT NULL," +
+                    "    FOREIGN KEY (parentGroup)" +
+                    "        REFERENCES Groups (groupName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (childGroup)" +
+                    "        REFERENCES Groups (groupName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    PRIMARY KEY (parentGroup , childGroup)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS ExercisesInGroups (" +
+                    "    parentGroup VARCHAR(20) NOT NULL," +
+                    "    exercise VARCHAR(20) NOT NULL," +
+                    "    FOREIGN KEY (parentGroup)" +
+                    "        REFERENCES Groups (groupName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    FOREIGN KEY (exercise)" +
+                    "        REFERENCES Exercise (exerciseName)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE," +
+                    "    PRIMARY KEY (parentGroup , exercise)" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+            query = "CREATE TABLE IF NOT EXISTS PulsAndGPS (" +
+                    "    dateAndTime DATETIME NOT NULL PRIMARY KEY," +
+                    "    puls INT(3)," +
+                    "    longitude INT(3)," +
+                    "    latitude INT(3)," +
+                    "    metersAboveOcean INT(4)," +
+                    "    results_fk INT UNSIGNED NOT NULL," +
+                    "    FOREIGN KEY (results_fk)" +
+                    "        REFERENCES Results (resultID)" +
+                    "        ON DELETE CASCADE" +
+                    "        ON UPDATE CASCADE" +
+                    ");";
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+
+
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}
+
 	}
 }
