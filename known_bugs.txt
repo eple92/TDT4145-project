@@ -1,0 +1,5 @@
+
+Pressing 3 in the opening screen will only promt "Query in select: SELECT * FROM ExerciseSession;", not do anything
+
+pressing 2 in the opening screen wil do absolutely nothing, and also crash the application.
+        - needs cconnection to database, administrating in the controll manager, and some actual function.
