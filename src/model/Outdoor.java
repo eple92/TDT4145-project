@@ -7,12 +7,6 @@ public class Outdoor extends Session {
 	private int temperature;
 	private String weather;
 	
-	
-	public static final String createTableQuery = "CREATE TABLE IF NOT EXISTS Outdoor (" +
-			"outdoorstartDateAndTime DATETIME NOT NULL PRIMARY KEY, " + 
-			"weather VARCHAR(20), " +
-			"temperature INT(2);";
-	
 	public static final String selectAllQuery = "SELECT * FROM Outdoor;";
 	
 	public Outdoor(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note, int temperature, String weather) {

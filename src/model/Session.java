@@ -24,15 +24,7 @@ public class Session {
 	protected SimpleIntegerProperty personalShape;
 	protected SimpleIntegerProperty prestation;
 	protected StringProperty note;
-	
-	public static final String createTableQuery = "CREATE TABLE IF NOT EXISTS ExerciseSession (" +
-			"startDateAndTime DATETIME NOT NULL PRIMARY KEY, " +
-			"endDateAndTime DATETIME NOT NULL UNIQUE, " +
-			"inOrOut VARCHAR(3), " + 
-			"personalShape INT(2), " +
-			"prestation INT(2), " +
-			"note VARCHAR(255));";
-	
+
 	public static final String selectAllQuery = "SELECT * FROM ExerciseSession;";
 
 	public Session(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note) {

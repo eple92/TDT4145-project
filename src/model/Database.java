@@ -83,9 +83,6 @@ public class Database {
 
             createTables();
 			
-			//noReturnAction(Session.createTableQuery);
-			//noReturnAction(Exercise.createTableQuery);
-			
 		} catch(SQLException se){
 			//Handle errors for DriverManager.getConnection() (JDBC)
 			se.printStackTrace();
