@@ -39,7 +39,7 @@ public class Session {
 		this.startDate = new SimpleObjectProperty<Date>(startDate);
 		this.endDate = new SimpleObjectProperty<Date>(endDate);
 		this.personalShape = new SimpleIntegerProperty(personalShape);
-		this.prestation = new SimpleIntegerProperty(personalShape);
+		this.prestation = new SimpleIntegerProperty(prestation);
 		this.note = new SimpleStringProperty(note); 
 	}
 	
