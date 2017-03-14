@@ -30,7 +30,7 @@ public class Goals {
 
     public String getInsertQuery() {
         String q = "Insert into Goals (exersiceName, sessionStartDateAndTIme, weight, rep, exersiceSet, distance, duration) " +
-                "values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
+                "Values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
                 getRep() + ", " + getExersiceSet() + ", " + getDistance() + ", " + getDuration() + ");";
         return q;
 

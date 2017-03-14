@@ -16,7 +16,7 @@ public class GroupsInGroups {
 
     public String getInsertQuery(){
        String q = "Insert into GroupsInGroups (parentGroup, childGroup) " +
-               "values('"+getParentGroup()+"', '"+getChildGroup()+"')";
+               "Values('"+getParentGroup()+"', '"+getChildGroup()+"')";
        return q;
     }
 
