@@ -3,3 +3,27 @@ Pressing 3 in the opening screen will only promt "Query in select: SELECT * FROM
 
 pressing 2 in the opening screen wil do absolutely nothing, and also crash the application.
         - needs cconnection to database, administrating in the controll manager, and some actual function.
+
+entering space when selecting time crashes the application
+
+its not possible to select midnight (00:00) as a valid time
+
+its possible to select the same start and endtime on the clock
+
+caps is not allowed on in/out
+
+application crashes ehen you input DD.MM.ÅÅ with anythin else than dot (.)
+
+temperature accepts any input, while it should be an int.
+
+trying to imput anythin else than numbers in personal form, or personal shape will crash the application
+
+When inserting numbers into time, it will not read the first sipher in minutes, leading to a predictabel collaspe
+
+even when you don't push anything to the database, it will tell you that you do
+
+when you have finished insertin something into the database, you cant restart the application
+
+performance is spelled preformance atm.
+
+you're allowe dto push an int (2) integer into an database with specifies it to be int (1)
