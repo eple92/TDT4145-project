@@ -32,7 +32,7 @@ public class SessionController {
 			int day = Integer.parseInt(parts[0]);
 			int month = Integer.parseInt(parts[1]);
 			int year = Integer.parseInt(parts[2]);
-			if (day > 31 || day < 1 || month > 12 || month < 1 || year >17 || year < 12){
+			if (day > 31 || day < 1 || month > 12 || month < 1 || year >99 || year < 00){
 				return false;
 			}
 		}
