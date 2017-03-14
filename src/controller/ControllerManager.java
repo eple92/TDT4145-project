@@ -8,6 +8,7 @@ public class ControllerManager {
 	private DatabaseController databaseController;
 	private SessionController sessionController;
 	private InputController inputController;
+	private QualityController qualityController;
 	
 	public ControllerManager() {
 		createControllers();
@@ -17,6 +18,7 @@ public class ControllerManager {
 		this.databaseController = new DatabaseController();
     	this.sessionController = new SessionController(databaseController);
     	this.inputController = new InputController(sessionController, databaseController);
+    	this.qualityController = new QualityController();//må linkes ordentlig, vet ikke hvordan dette gjøres
     	
     	inputController.getAction();
     }

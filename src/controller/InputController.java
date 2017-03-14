@@ -12,6 +12,7 @@ public class InputController {
 	private SessionController sessionController;
 	private BufferedReader br;
 	private DatabaseController dbController;
+	private QualityController qualityController;
 	
 	public InputController(SessionController sessionController, DatabaseController dbController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,8 +35,7 @@ public class InputController {
 			if (input.equals("1")) {
 				sessionController.addSession();
 	    	} else if (input.equals("2")) {
-	    		// TODO: mangler
-	    		System.out.println("Nothing here yet");
+				qualityController.getSession(); // todo trenger ordentlig linking
 	    	} else if (input.equals("3")) {
 	    		dbController.showTable(Session.selectAllQuery, "session");
 	    	} else if (input.equals("4")) {
