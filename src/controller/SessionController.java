@@ -18,7 +18,7 @@ public class SessionController {
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.mm.yy");
 	SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	private BufferedReader br;
-	
+
 	private DatabaseController dbController;
 	
 	public SessionController(DatabaseController dbController) {
@@ -28,17 +28,26 @@ public class SessionController {
 
 	boolean isValidDate(String date) {
 		if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
-			try {
-				dateFormatter.parse(date);
-				return true;
-			} catch(ParseException e) {
+			String[] parts = date.split("\\.");
+			int day = Integer.parseInt(parts[0]);
+			int month = Integer.parseInt(parts[1]);
+			int year = Integer.parseInt(parts[2]);
+			if (day > 31 || day < 1 || month > 12 || month < 1 || year >17 || year < 12){
 				return false;
 			}
-		} else {
-			return false;
 		}
-		
-	}
+			if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
+				try {
+					dateFormatter.parse(date);
+					return true;
+				} catch (ParseException e) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
 	
 	boolean isValidTime(String time) {
 		if (time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
@@ -57,9 +66,9 @@ public class SessionController {
 	    	String input = br.readLine();
 	    	
 	    	if (isValidDate(input)) {
-	    		date = input;		
+	    		date = input;
 	    	} else {
-	    		System.out.println("The date does not match the fornmat dd.mm.yy. Try again.");
+	    		System.out.println("The date does not match the format dd.mm.yy. Try again.");
 	    	}
     	}
     	
@@ -114,12 +123,12 @@ public class SessionController {
     		}
     	}
     	
-       	System.out.println("What was your prestation (1-10)?");
-       	String prestation = null;
-       	while (prestation == null) {
+       	System.out.println("What was your performance (1-10)?");
+       	String performance = null;
+       	while (performance == null) {
     		String input = br.readLine();
     		if (input.matches("[0-9]{1,2}") & Integer.parseInt(input) >= 1 & Integer.parseInt(input) <= 10) {
-    			prestation = input;
+    			performance = input;
     		} else {
     			System.out.println("The number is not a number or not between 1 and 10. Try again.");	
     		}
@@ -130,7 +139,7 @@ public class SessionController {
 
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
-    			" and your prestation " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
+    			" and your performance " + performance + ". Notes: " + note + ". Is that correct? (y/n)");
     	String correct = null; 
     
     	while (correct == null) {
@@ -155,7 +164,7 @@ public class SessionController {
 				}
 					
 	    		Integer ps = Integer.parseInt(personalShape);
-	    		Integer prest = Integer.parseInt(prestation);
+	    		Integer prest = Integer.parseInt(performance);
 	    		
 	    		Integer v = null;
                 Integer t = null;
