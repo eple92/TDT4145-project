@@ -145,8 +145,9 @@ public class SessionController {
     	while (correct == null) {
     		String input = br.readLine();
 	    	if (input.equals("y")) {
-	    		String startHour = duration.substring(0, 4);
-	    		String endHour = duration.substring(6, 10);
+	    		String startHour = duration.substring(0, 5);
+                System.out.println(startHour);
+	    		String endHour = duration.substring(6, 11);
 	    		
 	    		Date start = null;
 				try {
@@ -157,7 +158,7 @@ public class SessionController {
 				}
 	    		Date end = null;
 				try {
-					end = formatter.parse(date + " " + startHour + ":00");
+					end = formatter.parse(date + " " + endHour + ":00");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
