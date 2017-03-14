@@ -25,7 +25,7 @@ public class Session {
 	protected SimpleIntegerProperty prestation;
 	protected StringProperty note;
 
-	public static final String selectAllQuery = "SELECT * FROM ExerciseSession;";
+	public static final String selectAllQuery = "SELECT * FROM Session;";
 
 	public Session(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note) {
 		this.startDate = new SimpleObjectProperty<Date>(startDate);
