@@ -16,7 +16,7 @@ public class Indoor extends Session {
 	}
 
 	public String getIndoorInserQuery() {
-		String q = "INSERT INTO indoorsession VALUES ('" +
+		String q = "INSERT INTO indoorsession(indoorStartDateAndTime, aircondition, viewers) VALUES ('" +
 				super.getStartDateString() + "', '" + aircondition + "', " + viewers + ");";
 		
 		return q;

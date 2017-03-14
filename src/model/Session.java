@@ -36,9 +36,9 @@ public class Session {
 	}
 	
 	public String getInsertQuery() {
-		String q = "INSERT INTO ExerciseSession ('" + 
-				getStartDateString() + "', '" + getEndDateString()+ "', '" + this.inOrOut + "' " + getPersonalShape() + ", " +
-				getPrestation() + ", '" + getNote() + "');";	
+		String q = "INSERT INTO Session(startDateAndTime, endDateAndTime, inOrOut, personalShape, prestation, note) VALUES ('" +
+				getStartDateString() + "', '" + getEndDateString()+ "', '" + this.inOrOut + "', '" + getPersonalShape() + "', '" +
+				getPrestation() + "', '" + getNote() + "');";
 		return q;
 	}
 	
