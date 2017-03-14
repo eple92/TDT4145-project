@@ -8,7 +8,7 @@ public class ControllerManager {
 	private DatabaseController databaseController;
 	private SessionController sessionController;
 	private InputController inputController;
-	private QualityController qualityController;
+	public QualityController qualityController;
 	
 	public ControllerManager() {
 		createControllers();

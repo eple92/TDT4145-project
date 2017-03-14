@@ -12,7 +12,7 @@ public class InputController {
 	private SessionController sessionController;
 	private BufferedReader br;
 	private DatabaseController dbController;
-	private QualityController qualityController;
+	public QualityController qualityController;
 	
 	public InputController(SessionController sessionController, DatabaseController dbController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));

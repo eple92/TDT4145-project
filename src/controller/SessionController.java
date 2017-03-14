@@ -123,12 +123,12 @@ public class SessionController {
     		}
     	}
     	
-       	System.out.println("What was your performance (1-10)?");
-       	String performance = null;
-       	while (performance == null) {
+       	System.out.println("What was your preformance (1-10)?");
+       	String prestation = null;
+       	while (prestation == null) {
     		String input = br.readLine();
     		if (input.matches("[0-9]{1,2}") & Integer.parseInt(input) >= 1 & Integer.parseInt(input) <= 10) {
-    			performance = input;
+    			prestation = input;
     		} else {
     			System.out.println("The number is not a number or not between 1 and 10. Try again.");	
     		}
@@ -139,7 +139,7 @@ public class SessionController {
 
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
-    			" and your performance " + performance + ". Notes: " + note + ". Is that correct? (y/n)");
+    			" and your prestation " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
     	String correct = null; 
     
     	while (correct == null) {
@@ -164,7 +164,7 @@ public class SessionController {
 				}
 					
 	    		Integer ps = Integer.parseInt(personalShape);
-	    		Integer prest = Integer.parseInt(performance);
+	    		Integer prest = Integer.parseInt(prestation);
 	    		
 	    		Integer v = null;
                 Integer t = null;
