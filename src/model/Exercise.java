@@ -27,7 +27,7 @@ public class Exercise {
 	}
 
 	public String getInstertQuery() {
-		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + name + "', '" + description + "');";
+		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + getName() + "', '" + getDescription() + "');";
 	}
 
 
