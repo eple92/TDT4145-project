@@ -78,7 +78,7 @@ public class Database {
 			conn = DriverManager.getConnection(HOST_URL, USER, PASS);
 
             System.out.println("Creating the database");
-            String dropQuery = "DROP DATABASE IF NOT EXISTS " + dbName + ";";
+            String dropQuery = "DROP DATABASE IF EXISTS " + dbName + ";";
             pstmt = conn.prepareStatement(dropQuery);
             pstmt.executeUpdate();
             String createQuery = "CREATE DATABASE IF NOT EXISTS " + dbName + ";";

@@ -18,9 +18,7 @@ public class DatabaseController {
 		}
 				
 		public void showTable(String q, String type) {
-			System.out.println("In showTable");
 			ArrayList<String> result = db.select(q, type);
-			System.out.println("Result: " + result);
 			for (int i = 0; i < result.size(); i++) {
 				System.out.println(result.get(i) + "\n");
 			}

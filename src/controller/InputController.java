@@ -12,9 +12,10 @@ public class InputController {
 	private SessionController sessionController;
 	private BufferedReader br;
 	private DatabaseController dbController;
-	public QualityController qualityController;
+	private QualityController qualityController;
+	private ResultsController resultsController;
 	
-	public InputController(SessionController sessionController, DatabaseController dbController, QualityController qualityController) {
+	public InputController(DatabaseController dbController, SessionController sessionController, QualityController qualityController, ResultsController resultsController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 		this.sessionController = sessionController;
 		this.dbController = dbController;
