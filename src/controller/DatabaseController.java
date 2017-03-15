@@ -25,4 +25,8 @@ public class DatabaseController {
 				System.out.println(result.get(i) + "\n");
 			}
 		}
+
+		public ArrayList<String> selectAction(String query, String type){
+			return db.select(query, type);
+		}
 }

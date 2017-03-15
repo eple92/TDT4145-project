@@ -39,15 +39,6 @@ public class SessionController {
 			return false;
 		}
 	}
-
-	
-	boolean isValidTime(String time) {
-		if (time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	
 	public void addSession() throws IOException {
@@ -71,9 +62,13 @@ public class SessionController {
 			if(input.matches("([01]?[0-9]|2[0-3]):([0-5][0-9])-([01]?[0-9]|2[0-3]):([0-5][0-9])")){
 				String from = input.substring(0, 5);
 				String to = input.substring(6, 11);
-				System.out.println(isValidTime(from));
-				System.out.println(isValidTime(to));
-				if (isValidTime(from) & isValidTime(to)) {
+				boolean valid = false;
+				try {
+					valid = timeFormatter.parse(from).before(timeFormatter.parse(to));
+				} catch (ParseException e) {
+				}
+
+				if (valid) {
 					duration = input;
 				} else {
 					System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
@@ -92,13 +87,13 @@ public class SessionController {
     	String weather = "";
     	while (inOrOut == null) {
     		String input = br.readLine();
-    		if (input.equals("in")) {
+    		if (input.equals("in") || input.equals("IN")) {
     			System.out.println("How was the airconditioning?");
     			airCond = br.readLine();
         		System.out.println("How many viewers?");
         		viewers= br.readLine();
 				inOrOut = "in";
-    		} else if (input.equals("out")) {
+    		} else if (input.equals("out") || input.equals("OUT")) {
     			System.out.println("How was the temperature?");
     			temp = br.readLine();
         		System.out.println("How was the weather?");
@@ -120,7 +115,7 @@ public class SessionController {
     		}
     	}
     	
-       	System.out.println("What was your preformance (1-10)?");
+       	System.out.println("What was your performance (1-10)?");
        	String prestation = null;
        	while (prestation == null) {
     		String input = br.readLine();
@@ -136,7 +131,7 @@ public class SessionController {
 
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
-    			" and your prestation " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
+    			" and your performance " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
     	String correct = null; 
     
     	while (correct == null) {

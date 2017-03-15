@@ -207,6 +207,8 @@ public class Database {
 				result.add(session);
 			} else if (type == "exercise") {
 				// TODO: missing
+				String exercise = rs.getString("exerciseName") + " Description: " + rs.getString("description");
+				result.add(exercise);
 			} else if (type == "inResults") {
 				String inResult = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName") + " - " + rs.getInt("weight") + "kg";
 				result.add(inResult);
@@ -487,6 +489,56 @@ public class Database {
         noReturnAction(new Results("Running", new Date(11, 12, 2015), 0, 0, 0, 20, 60).getInsertQuery());
         noReturnAction(new Results("Jogging", new Date(8, 2, 2015), 0, 0, 0, 3, 50).getInsertQuery());
         noReturnAction(new Results("Jogging", new Date(4, 8, 2015), 0, 0, 0, 4, 20).getInsertQuery());
-	
+	}
+
+	private void addExercisesToDb(){
+
+		Exercise abRoller = new Exercise("Ab Roller", "1. Hold the Ab Roller with both hands and kneel" +
+				" on the floor.\n" +
+				"2. Now place the ab roller on the floor in front of you so that you are on all your hands and knees" +
+				" (as in a kneeling push up position). This will be your starting position.\n" +
+				"3. Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip:" +
+				" Go down as far as you can without touching the floor with your body. Breathe in during this portion" +
+				" of the movement.\n" +
+				"4. After a pause at the stretched position, start pulling yourself back to the starting position as" +
+				" you breathe out. Tip: Go slowly and keep your abs tight at all times.\n" +
+				"Caution: This exercise is not advised for people with lower back problems or hernias.\n" +
+				"\n" +
+				"Variations: If you are advanced you can perform the exercise moving the ab roller to the sides in a" +
+				" diagonal fashion as opposed to straight forward. This version places more emphasis on the obliques.");
+
+		if (select(abRoller.getSelectQuery(), "exercise") == null){
+			noReturnAction(abRoller.getInstertQuery());
+		}
+
+		Exercise armCircles = new Exercise("Arm Circles", "Stand up and extend your arms straight out by" +
+				" the sides. The arms should be parallel to the floor and perpendicular (90-degree angle) to your" +
+				" torso. This will be your starting position.\n" +
+				"Slowly start to make circles of about 1 foot in diameter with each outstretched arm. Breathe" +
+				" normally as you perform the movement.\n" +
+				"Continue the circular motion of the outstretched arms for about ten seconds. Then reverse the" +
+				" movement, going the opposite direction.\n" +
+				"Tip: Ten second movements equal one set and each circle equals one repetition.\n" +
+				"\n" +
+				"Variations: As you get stronger you can use some light resistance.");
+		if (select(armCircles.getSelectQuery(), "exercise") == null){
+			noReturnAction(armCircles.getInstertQuery());
+		}
+		Exercise running = new Exercise("Running", "Run");
+		if (select(running.getSelectQuery(), "exercise") == null){
+			noReturnAction(running.getInstertQuery());
+		}
+		Exercise rowing = new Exercise("Rowing", "Move oars in half circles, to propel boat forward.");
+		if (select(rowing.getSelectQuery(), "exercise") == null){
+			noReturnAction(rowing.getInstertQuery());
+		}
+		Exercise jogging = new Exercise("Jogging", "Jog");
+		if (select(jogging.getSelectQuery(), "exercise") == null){
+			noReturnAction(jogging.getInstertQuery());
+		}
+		Exercise jumpRope = new Exercise("Jump Rope", "Swing rope around yourself and jump over it when it reaches feet.");
+		if (select(jumpRope.getSelectQuery(), "exercise") == null){
+			noReturnAction(jumpRope.getInstertQuery());
+		}
 	}
 }

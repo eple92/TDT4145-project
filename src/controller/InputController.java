@@ -19,6 +19,7 @@ public class InputController {
 		this.sessionController = sessionController;
 		this.dbController = dbController;
 		this.qualityController = qualityController;
+		this.resultsController = resultsController;
 	}
 	
 	public void getAction(){
@@ -47,7 +48,7 @@ public class InputController {
 				// TODO
 			} else if (input.equals("5")) {
 				System.out.println("add results here");
-				// TODO
+				resultsController.addResults();
 			} else if (input.equals("6")) {
 				System.out.println("thanks for using workoutdiary");
 				System.exit(0);
