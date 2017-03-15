@@ -1,7 +1,5 @@
 package model;
 
-import main.MainApp;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

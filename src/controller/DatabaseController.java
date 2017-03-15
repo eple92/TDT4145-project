@@ -11,8 +11,14 @@ public class DatabaseController {
 		
 		public DatabaseController(ControllerManager manager) {
 			this.manager = manager;
-			db = new Database();
+
+			// If we fix a proper setup this should be changed
+			connectToDB();
 		}
+
+		public void connectToDB(){
+            db = new Database();
+        }
 		
 		public void insertAction(String query) {
 			db.noReturnAction(query);
