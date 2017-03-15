@@ -29,5 +29,9 @@ public class Exercise {
 		return description.get();
 	}
 
+	public String getInstertQuery() {
+		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + name + "', '" + description + "');";
+	}
+
 
 }
