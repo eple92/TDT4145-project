@@ -10,13 +10,10 @@ public class Exercise {
 	
 	private StringProperty name;
 	private StringProperty description;
-
-	MainApp mainApp;
 			
 	public static final String selectAllQuery = "SELECT * FROM Exercise;";
 
-	public Exercise(MainApp mainApp, String name, String description) {
-		this.mainApp = mainApp;
+	public Exercise(String name, String description) {
 		this.name = new SimpleStringProperty(name);
 		this.description = new SimpleStringProperty(description);
 	}
