@@ -12,8 +12,6 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.Properties;
 
 public class Database {
