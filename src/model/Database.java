@@ -202,7 +202,8 @@ public class Database {
 						". Note: " + rs.getString("note");
 				result.add(session);
 			} else if (type == "exercise") {
-				// TODO: missing
+				String exercise = rs.getString("exerciseName") + " Description: " + rs.getString("description");
+				result.add(exercise);
 			}
 		}
 		return result;

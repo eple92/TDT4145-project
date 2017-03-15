@@ -1,5 +1,6 @@
 package controller;
 
+import model.Exercise;
 import model.Results;
 
 import java.io.BufferedReader;
@@ -21,10 +22,11 @@ public class ResultsController {
     }
 
     boolean isValidExersice (String exersice){ // noe usikker på om denne virker
-        if (exersice.matches("knebøy, benkpress, markløft")){
-            return true;
-        } else {
+        System.out.println(dbController.selectAction(new Exercise(exersice, "").getSelectQuery(), "exercise"));
+        if (dbController.selectAction(new Exercise(exersice, "").getSelectQuery(), "exercise").isEmpty()){
             return false;
+        } else {
+            return true;
         }
     }
 
