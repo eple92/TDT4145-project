@@ -1,13 +1,19 @@
 package controller;
 
+import model.Results;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ResultsController {
 
     private DatabaseController dbController;
     private BufferedReader br;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
 
     public ResultsController(){
         this.br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +46,6 @@ public class ResultsController {
             } else {
                 System.out.println("Thats not a recognized exersice, please try again");
             }
-
         }
 
         System.out.println("when did your session start?");
@@ -54,7 +59,6 @@ public class ResultsController {
             }
         }
 
-
         System.out.println("Did you perform this exersice outside, or inside?");
         String inOrOut = null;
         String weight = null;
@@ -62,6 +66,7 @@ public class ResultsController {
         String exersiceSet = null;
         String distance = null;
         String duration = null;
+        Boolean correct = false;
         while (inOrOut==null){
             String input = br.readLine();
             if(input.equals("in")){
@@ -100,7 +105,17 @@ public class ResultsController {
                 System.out.println("You exercised " + exersiceName +
                         " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
                         " kg, " + rep + " repetitions for" + exersiceSet + " sets. Is that correct? (y/n)");
-            }else if (input.equals("out")){
+
+                String answer = br.readLine();
+                if(answer.equals("y")){
+                    correct = true;
+                } else if (answer.equals("n")){
+                    addResult();
+                } else {
+                    System.out.println("not a valid input, (y/n)");
+                }
+
+            } else if (input.equals("out")){
 
                 System.out.println("What distance did you cover in km?");
                 while(distance == null){
@@ -126,16 +141,42 @@ public class ResultsController {
                 System.out.println("You exercised " + exersiceName +
                         " in your session at " + sessionStartDateAndTime + ", you ran " + distance +
                         " km, for " + duration + " min. Is that correct? (y/n)");
+
+                String answer = br.readLine();
+                if(answer.equals("y")){
+                    correct = true;
+                } else if (answer.equals("n")){
+                    addResult();
+                } else {
+                    System.out.println("not a valid input, (y/n)");
+                }
+
             }else{
                 System.out.println("Please choose a correct term");
             }
+
+            while (correct==true){
+
+                Date start = null;
+                try {
+                    start = formatter.parse(sessionStartDateAndTime);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                Integer w = Integer.parseInt(weight);
+                Integer r = Integer.parseInt(rep);
+                Integer s = Integer.parseInt(exersiceSet);
+                Integer di = Integer.parseInt(distance);
+                Integer du = Integer.parseInt(duration);
+
+                Results results = new Results(exersiceName, start, w, r, s, di, du);
+                String resultsInsertQuery = results.getInsertQuery();
+                dbController.insertAction(resultsInsertQuery);
+
+            }
+
         }
-
-
-
-
-
-
-
     }
 }
