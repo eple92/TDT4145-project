@@ -31,7 +31,7 @@ public class Exercise {
 	}
 
 	public String getSelectQuery() {
-		return "SELECT * FROM Exercise WHERE exerciseName='" + name + "';";
+		return "SELECT * FROM Exercise WHERE exerciseName='" + getName() + "';";
 	}
 
 
