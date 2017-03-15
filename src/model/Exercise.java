@@ -30,5 +30,9 @@ public class Exercise {
 		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + getName() + "', '" + getDescription() + "');";
 	}
 
+	public String getSelectQuery() {
+		return "SELECT * FROM Exercise WHERE exerciseName='" + name + "';";
+	}
+
 
 }
