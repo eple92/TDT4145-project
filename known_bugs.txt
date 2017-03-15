@@ -22,4 +22,4 @@ when you have finished inserting something into the database, you cant restart t
 
 performance is spelled performance atm.
 
-you're allowed dto push an int (2) integer into an database with specifies it to be int (1)
+you're allowed to push an int (2) integer into an database with specifies it to be int (1)

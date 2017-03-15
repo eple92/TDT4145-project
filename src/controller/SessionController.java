@@ -28,25 +28,17 @@ public class SessionController {
 
 	boolean isValidDate(String date) {
 		if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
-			String[] parts = date.split("\\.");
-			int day = Integer.parseInt(parts[0]);
-			int month = Integer.parseInt(parts[1]);
-			int year = Integer.parseInt(parts[2]);
-			if (day > 31 || day < 1 || month > 12 || month < 1 || year >99 || year < 00){
+			try {
+				dateFormatter.setLenient(false);
+				dateFormatter.parse(date);
+				return true;
+			} catch (ParseException e) {
 				return false;
 			}
+		} else {
+			return false;
 		}
-			if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
-				try {
-					dateFormatter.parse(date);
-					return true;
-				} catch (ParseException e) {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		}
+	}
 
 	
 	boolean isValidTime(String time) {
