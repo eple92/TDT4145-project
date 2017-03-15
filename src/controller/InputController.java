@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -15,16 +16,30 @@ public class InputController {
 		this.manager = manager;
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 	}
+
+	private boolean needsSetUp() {
+	    File propsFile = new File("resources/config.properties");
+	    if (propsFile.exists()){
+	        return false;
+        }
+	    return true;
+    }
 	
 	public void getAction(){
+	    if (needsSetUp()) {
+	        manager.getSetupController().firstTimeSetUp();
+        } else {
+	        manager.getDatabaseController().connectToDB();
+        }
     	System.out.println("What is your action? \n" +
-    		"1. New session \n" + 
-    		"2. Get best result \n" +
-    		"3. See all sessions \n" +
-			"4. Add exercises to a session \n" +
-			"5. Add Results \n" +
-    		"6. Quit"
-    	);
+                "1. New session \n" +
+                "2. Get best result \n" +
+                "3. See all sessions \n" +
+                "4. Add exercises to a session \n" +
+                "5. Add Results \n" +
+                "6. Setup \n" +
+                "7. Quit"
+        );
     	
     	String input;
 		try {
@@ -38,12 +53,14 @@ public class InputController {
 	    	} else if (input.equals("3")) {
 	    		manager.getDatabaseController().showTable(Session.selectAllQuery, "session");
 	    	} else if (input.equals("4")) {
-				System.out.println("add exersices here");
+				System.out.println("add exercises here");
 				// TODO
 			} else if (input.equals("5")) {
 				System.out.println("add results here");
 				manager.getResultsController().addResults();
 			} else if (input.equals("6")) {
+			    manager.getSetupController().setUp();
+            } else if (input.equals("7")) {
 				System.out.println("thanks for using workoutdiary");
 				System.exit(0);
 			}

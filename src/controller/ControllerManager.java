@@ -7,6 +7,7 @@ public class ControllerManager {
     private ResultsController resultsController;
 	private QualityController qualityController;
     private InputController inputController;
+    private SetupController setupController;
 	
 	public ControllerManager() {
 		createControllers();
@@ -18,6 +19,7 @@ public class ControllerManager {
     	this.sessionController = new SessionController(this);
     	this.qualityController = new QualityController(this);
     	this.inputController = new InputController(this);
+    	this.setupController = new SetupController(this);
     }
 
     public DatabaseController getDatabaseController() {
@@ -38,5 +40,9 @@ public class ControllerManager {
 
     public InputController getInputController(){
         return inputController;
+    }
+
+    public SetupController getSetupController() {
+        return setupController;
     }
 }

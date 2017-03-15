@@ -44,7 +44,7 @@ public class Database {
 
             prop.load(input);
 
-            DB_URL = prop.getProperty("dburl");
+            DB_URL = prop.getProperty("hosturl") + prop.getProperty("dbname");
             USER = prop.getProperty("dbuser");
             PASS = prop.getProperty("dbpass");
 

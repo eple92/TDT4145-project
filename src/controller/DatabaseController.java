@@ -13,7 +13,7 @@ public class DatabaseController {
 			this.manager = manager;
 
 			// If we fix a proper setup this should be changed
-			connectToDB();
+			//connectToDB();
 		}
 
 		public void connectToDB(){
