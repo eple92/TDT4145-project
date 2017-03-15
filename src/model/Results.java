@@ -15,11 +15,11 @@ public class Results {
 
     private StringProperty exerciseName;
     private ObjectProperty<Date> sessionStartDateAndTime;
-    protected SimpleIntegerProperty weight;
-    protected SimpleIntegerProperty rep;
-    protected SimpleIntegerProperty exerciseSet;
-    protected SimpleIntegerProperty distance;
-    protected SimpleIntegerProperty duration;
+    private SimpleIntegerProperty weight;
+    private SimpleIntegerProperty rep;
+    private SimpleIntegerProperty exerciseSet;
+    private SimpleIntegerProperty distance;
+    private SimpleIntegerProperty duration;
 
     public Results (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exerciseSet, int distance, int duration){
         this.exerciseName = new SimpleStringProperty(exersiceName);
@@ -34,7 +34,7 @@ public class Results {
     public String getInsertQuery() {
         String q = "INSERT INTO Results (exerciseName, sessionStartDateAndTIme, weight, rep, exerciseSet, distance, duration) " +
                 "VALUES('"+ getExerciseNameString()+ "', '" + getSessionStartDateAndTime() + "', '" + getWeight() + "', '" +
-                getRep() + "', '" + getExersiceSet() + "', '" + getDistance() + "', '" + getDuration() + "');";
+                getRep() + "', '" + getExerciseSet() + "', '" + getDistance() + "', '" + getDuration() + "');";
         return q;
 
     }
@@ -53,7 +53,7 @@ public class Results {
 
     public int getRep(){return rep.get();}
 
-    public int getExersiceSet(){return exerciseSet.get();}
+    public int getExerciseSet(){return exerciseSet.get();}
 
     public int getDistance(){return distance.get();}
 
