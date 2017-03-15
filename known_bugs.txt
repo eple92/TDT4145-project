@@ -1,6 +1,4 @@
 
-Pressing 3 in the opening screen will only promt "Query in select: SELECT * FROM ExerciseSession;", not do anything (This should work now.)
-
 pressing 2 in the opening screen wil do absolutely nothing, and also crash the application.
         - needs connection to database, administrating in the control manager, and some actual function.s
 
@@ -17,8 +15,6 @@ application crashes when you input DD.MM.ÅÅ with anything else than dot (.)
 temperature accepts any input, while it should be an int.
 
 trying to input anything else than numbers in personal form, or personal shape will crash the application
-
-When inserting numbers into time, it will not read the first sipher in minutes, leading to a predictabel collaspe
 
 even when you don't push anything to the database, it will tell you that you do
 
