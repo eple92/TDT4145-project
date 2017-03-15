@@ -210,7 +210,7 @@ public class Database {
 			} else if (type == "inResults") {
 				String inResult = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName") + " - " + rs.getInt("weight") + "kg";
 				result.add(inResult);
-			} else if (type == "inResults") {
+			} else if (type == "outResults") {
 				String outResult = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName") + " - " + rs.getInt("distance") + "km";
 				result.add(outResult);
 			}else if (type == "results") {
