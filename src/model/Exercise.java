@@ -30,5 +30,4 @@ public class Exercise {
 		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + getName() + "', '" + getDescription() + "');";
 	}
 
-
 }

@@ -17,8 +17,9 @@ public class ControllerManager {
 	private void createControllers() {
 		this.databaseController = new DatabaseController();
     	this.sessionController = new SessionController(databaseController);
-    	this.inputController = new InputController(sessionController, databaseController);
-    	this.qualityController = new QualityController();//må linkes ordentlig, vet ikke hvordan dette gjøres
+    	this.qualityController = new QualityController(databaseController);
+    	this.inputController = new InputController(sessionController, databaseController, qualityController);
+    	
     	
     	inputController.getAction();
     }

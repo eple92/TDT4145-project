@@ -14,16 +14,17 @@ public class InputController {
 	private DatabaseController dbController;
 	public QualityController qualityController;
 	
-	public InputController(SessionController sessionController, DatabaseController dbController) {
+	public InputController(SessionController sessionController, DatabaseController dbController, QualityController qualityController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 		this.sessionController = sessionController;
 		this.dbController = dbController;
+		this.qualityController = qualityController;
 	}
 	
 	public void getAction(){
     	System.out.println("What is your action? \n" +
     		"1. New session \n" + 
-    		"2. Get best session \n" +
+    		"2. Get best result \n" +
     		"3. See all sessions \n" +
 			"4. Add exersices to a session \n" +
 			"5. Add Results \n" +
@@ -37,7 +38,8 @@ public class InputController {
 			if (input.equals("1")) {
 				sessionController.addSession();
 	    	} else if (input.equals("2")) {
-				qualityController.getSession(); // todo trenger ordentlig linking
+	    		System.out.println("QualityController: " + qualityController);
+	    		qualityController.getSession();
 	    	} else if (input.equals("3")) {
 	    		dbController.showTable(Session.selectAllQuery, "session");
 	    	} else if (input.equals("4")) {
@@ -59,7 +61,6 @@ public class InputController {
 		
     	getAction();
 
-	}
-	
+	}	
 	
 }
