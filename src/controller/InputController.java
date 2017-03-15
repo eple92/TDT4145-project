@@ -24,8 +24,10 @@ public class InputController {
     	System.out.println("What is your action? \n" +
     		"1. New session \n" + 
     		"2. Get best session \n" +
-    		"3. See all sessions \n" + 
-    		"4. Quit"
+    		"3. See all sessions \n" +
+			"4. Add exersices to a session \n" +
+			"5. Add Results \n" +
+    		"6. Quit"
     	);
     	
     	String input;
@@ -39,6 +41,12 @@ public class InputController {
 	    	} else if (input.equals("3")) {
 	    		dbController.showTable(Session.selectAllQuery, "session");
 	    	} else if (input.equals("4")) {
+				System.out.println("add exersices here");
+				// TODO
+			} else if (input.equals("5")) {
+				System.out.println("add results here");
+				// TODO
+			} else if (input.equals("6")) {
 				System.out.println("thanks for using workoutdiary");
 				System.exit(0);
 			}
