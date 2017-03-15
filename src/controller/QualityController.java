@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import model.Results;
-
 public class QualityController {
 
     private BufferedReader br;

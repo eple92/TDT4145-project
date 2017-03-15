@@ -55,14 +55,14 @@ public class ResultsController {
     }
 
     public void addResults() throws IOException {
-        System.out.println("here you can add results from your exersice. \n which exersice did you perform?");
+        System.out.println("here you can add results from your exercise. \n which exersice did you perform?");
         String exersiceName = null;
         while (exersiceName == null){
             String input = br.readLine();
             if (isValidExersice(input)){
                 exersiceName = input;
             } else {
-                System.out.println("Thats not a recognized exersice, please try again");
+                System.out.println("Thats not a recognized exercise, please try again");
             }
         }
 

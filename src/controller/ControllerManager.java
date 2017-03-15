@@ -1,8 +1,5 @@
 package controller;
 
-import model.Exercise;
-import model.Session;
-
 public class ControllerManager {
 
 	private DatabaseController databaseController;

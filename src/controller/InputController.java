@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -28,7 +27,7 @@ public class InputController {
     		"1. New session \n" + 
     		"2. Get best result \n" +
     		"3. See all sessions \n" +
-			"4. Add exersices to a session \n" +
+			"4. Add exercises to a session \n" +
 			"5. Add Results \n" +
     		"6. Quit"
     	);
