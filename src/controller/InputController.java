@@ -29,7 +29,7 @@ public class InputController {
 	    if (needsSetUp()) {
 	        manager.getSetupController().firstTimeSetUp();
         } else {
-	        manager.getDatabaseController().connectToDB();
+	        manager.getDatabaseController().makeNewConnection();
         }
     	System.out.println("What is your action? \n" +
                 "1. New session \n" +

@@ -35,7 +35,8 @@ public class SetupController {
         } catch (IOException e){
             System.out.println("An error happened when trying to read input.");
         }
-        manager.getDatabaseController().connectToDB();
+        manager.getDatabaseController().makeNewConnection();
+        manager.getDatabaseController().createDatabase();
         setUp();
     }
 
@@ -43,7 +44,8 @@ public class SetupController {
 
         System.out.println("What do you want to do?\n" +
                 "1. Run first time setup\n" +
-                "2. Exit setup"
+                "2. Populate database" +
+                "3. Exit setup"
         );
         String input;
         boolean notValidInput = true;
@@ -54,24 +56,15 @@ public class SetupController {
                     firstTimeSetUp();
                     notValidInput = false;
                 } else if (input.equals("2")){
+                    manager.getDatabaseController().populateDatabase();
+                    notValidInput = false;
+                } else if (input.equals("3")){
                     notValidInput = false;
                 }
             }
         } catch (IOException e) {
             System.out.println("An error happened when trying to read input.");
         }
-
-    }
-
-    private void dbSettings() {
-
-    }
-
-    private void createDB() {
-
-    }
-
-    private void populateDB() {
 
     }
 }

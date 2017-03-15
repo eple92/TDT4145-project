@@ -11,13 +11,18 @@ public class DatabaseController {
 		
 		public DatabaseController(ControllerManager manager) {
 			this.manager = manager;
-
-			// If we fix a proper setup this should be changed
-			//connectToDB();
 		}
 
-		public void connectToDB(){
+		public void makeNewConnection(){
             db = new Database();
+        }
+
+        public void createDatabase(){
+		    db.recreateDB();
+        }
+
+        public void populateDatabase() {
+            db.populateDatabase();
         }
 		
 		public void insertAction(String query) {
