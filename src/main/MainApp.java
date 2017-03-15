@@ -3,6 +3,7 @@ package main;
 import controller.ControllerManager;
 import controller.InputController;
 import controller.SessionController;
+import controller.ResultsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

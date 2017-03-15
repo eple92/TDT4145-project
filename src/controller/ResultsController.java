@@ -36,7 +36,7 @@ public class ResultsController {
         }
     }
 
-    public void addResult() throws IOException {
+    public void addResults() throws IOException {
         System.out.println("here you can add results from your exersice. \n which exersice did you perform?");
         String exersiceName = null;
         while (exersiceName == null){
@@ -110,7 +110,7 @@ public class ResultsController {
                 if(answer.equals("y")){
                     correct = true;
                 } else if (answer.equals("n")){
-                    addResult();
+                    addResults();
                 } else {
                     System.out.println("not a valid input, (y/n)");
                 }
@@ -146,7 +146,7 @@ public class ResultsController {
                 if(answer.equals("y")){
                     correct = true;
                 } else if (answer.equals("n")){
-                    addResult();
+                    addResults();
                 } else {
                     System.out.println("not a valid input, (y/n)");
                 }
