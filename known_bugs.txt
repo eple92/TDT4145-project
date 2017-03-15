@@ -1,8 +1,8 @@
 
-Pressing 3 in the opening screen will only promt "Query in select: SELECT * FROM ExerciseSession;", not do anything
+Pressing 3 in the opening screen will only promt "Query in select: SELECT * FROM ExerciseSession;", not do anything (This should work now.)
 
 pressing 2 in the opening screen wil do absolutely nothing, and also crash the application.
-        - needs cconnection to database, administrating in the controll manager, and some actual function.
+        - needs connection to database, administrating in the control manager, and some actual function.s
 
 entering space when selecting time crashes the application
 
