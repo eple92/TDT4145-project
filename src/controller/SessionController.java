@@ -87,13 +87,13 @@ public class SessionController {
     	String weather = "";
     	while (inOrOut == null) {
     		String input = br.readLine();
-    		if (input.equals("in")) {
+    		if (input.equals("in") || input.equals("IN")) {
     			System.out.println("How was the airconditioning?");
     			airCond = br.readLine();
         		System.out.println("How many viewers?");
         		viewers= br.readLine();
 				inOrOut = "in";
-    		} else if (input.equals("out")) {
+    		} else if (input.equals("out") || input.equals("OUT")) {
     			System.out.println("How was the temperature?");
     			temp = br.readLine();
         		System.out.println("How was the weather?");

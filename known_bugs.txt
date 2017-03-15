@@ -4,8 +4,6 @@ pressing 2 in the opening screen wil do absolutely nothing, and also crash the a
 
 its not possible to select midnight (00:00) as a valid time
 
-caps is not allowed on in/out
-
 application crashes when you input DD.MM.ÅÅ with anything else than dot (.)
 
 temperature accepts any input, while it should be an int.
