@@ -24,7 +24,7 @@ public class ResultsController {
         this.dbController = dbController;
     }
 
-    boolean isValidExersice (String exercise){ // noe usikker på om denne virker
+    boolean isValidExersice (String exercise){
         if (dbController.selectAction(new Exercise(exercise, "").getSelectQuery(), "exercise").isEmpty()){
             return false;
         } else {
@@ -32,7 +32,7 @@ public class ResultsController {
         }
     }
 
-    boolean isExersiceTime (Date sessionStartDateAndTime){ // denne må også skjekkes, vet ikke hvordan man kan få til dette
+    boolean isExersiceTime (Date sessionStartDateAndTime){
         if (dbController.selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, 0, 0,"").getSelectQuery(), "session").isEmpty()){
             return false;
         } else {
@@ -104,17 +104,6 @@ public class ResultsController {
             }
         }
 
-        /*System.out.println("when did your session start?");
-        String sessionStartDateAndTime = null;
-        while(sessionStartDateAndTime == null){
-            String input = br.readLine();
-            if(isExersiceTime(input)){
-                sessionStartDateAndTime = input;
-            } else {
-                System.out.println("There are no exersice sessions at that time, please insert a valid exersice time");
-            }
-        }*/
-
         System.out.println("Did you perform this exercise outside, or inside?");
         String inOrOut = null;
         String weight = null;
@@ -122,7 +111,6 @@ public class ResultsController {
         String exerciseSet = null;
         String distance = null;
         String duration = null;
-        Boolean correct = false;
         while (inOrOut==null){
             String input = br.readLine();
             if(input.equals("in")){
