@@ -20,10 +20,12 @@ public class SessionController {
 	private BufferedReader br;
 
 	private DatabaseController dbController;
+	private ResultsController resultsController;
 	
-	public SessionController(DatabaseController dbController) {
+	public SessionController(DatabaseController dbController, ResultsController resultsController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 		this.dbController = dbController;
+		this.resultsController = resultsController;
 	}
 
 	boolean isValidDate(String date) {
