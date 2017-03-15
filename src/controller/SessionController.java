@@ -68,15 +68,20 @@ public class SessionController {
     	String duration = null;
     	while (duration == null) {
     		String input = br.readLine();
-    		String from = input.substring(0, 5);
-    		String to = input.substring(6, 11);
-    		System.out.println(isValidTime(from));
-    		System.out.println(isValidTime(to));
-        	if (isValidTime(from) & isValidTime(to)) {
-        		duration = input;
-        	} else {
-        		System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
-        	}
+			if(input.matches("([01]?[0-9]|2[0-3]):([0-5][0-9])-([01]?[0-9]|2[0-3]):([0-5][0-9])")){
+				String from = input.substring(0, 5);
+				String to = input.substring(6, 11);
+				System.out.println(isValidTime(from));
+				System.out.println(isValidTime(to));
+				if (isValidTime(from) & isValidTime(to)) {
+					duration = input;
+				} else {
+					System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
+				}
+			}
+			else {
+				System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
+			}
     	}
     	
     	System.out.println("Was it in or out?");
