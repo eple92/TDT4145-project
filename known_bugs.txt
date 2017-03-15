@@ -4,8 +4,6 @@ pressing 2 in the opening screen wil do absolutely nothing, and also crash the a
 
 its not possible to select midnight (00:00) as a valid time
 
-application crashes when you input DD.MM.ÅÅ with anything else than dot (.)
-
 temperature accepts any input, while it should be an int.
 
 trying to input anything else than numbers in personal form, or personal shape will crash the application
@@ -13,7 +11,5 @@ trying to input anything else than numbers in personal form, or personal shape w
 even when you don't push anything to the database, it will tell you that you do
 
 when you have finished inserting something into the database, you cant restart the application
-
-performance is spelled performance atm.
 
 you're allowed to push an int (2) integer into an database with specifies it to be int (1)

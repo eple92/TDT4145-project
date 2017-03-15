@@ -115,7 +115,7 @@ public class SessionController {
     		}
     	}
     	
-       	System.out.println("What was your preformance (1-10)?");
+       	System.out.println("What was your performance (1-10)?");
        	String prestation = null;
        	while (prestation == null) {
     		String input = br.readLine();
@@ -131,7 +131,7 @@ public class SessionController {
 
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
-    			" and your prestation " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
+    			" and your performance " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
     	String correct = null; 
     
     	while (correct == null) {
