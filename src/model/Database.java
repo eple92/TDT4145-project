@@ -9,8 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Properties;
 
 public class Database {
@@ -459,32 +462,31 @@ public class Database {
 	}
 
 	public void populateDatabase() {
-        noReturnAction(new Exercise("Running", "Run").getInstertQuery());
-        noReturnAction(new Exercise("Rowing", "Move oars in half circles, to propel boat forward.").getInstertQuery());
-        noReturnAction(new Exercise("Jogging", "Jog").getInstertQuery());
-        noReturnAction(new Exercise("Jump Rope", "Swing rope around yourself and jump over it when it reaches feet.").getInstertQuery());
-	
-        noReturnAction(new Exercise("Squat", "Squatting").getInstertQuery());
-        noReturnAction(new Exercise("Benchpress", "Press").getInstertQuery());
-        noReturnAction(new Exercise("Arm Circles", "Description").getInstertQuery());
-        noReturnAction(new Exercise("Ab roller", "Belly").getInstertQuery());
-        
-        
-        noReturnAction(new Session(new Date(12, 12, 2015), new Date(12, 12, 2015), 8, 9, "Note").getInsertQuery());
-        noReturnAction(new Session(new Date(11, 12, 2015), new Date(11, 12, 2015), 8, 9, "Note").getInsertQuery());
-        noReturnAction(new Session(new Date(8, 2, 2015), new Date(8, 2, 2015), 4, 5, "Note").getInsertQuery());
-        noReturnAction(new Session(new Date(4, 8, 2015), new Date(4, 8, 2015), 4, 5, "Note").getInsertQuery());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
 
-        noReturnAction(new Results("Arm Circles", new Date(12, 12, 2015), 80, 4, 4, 0, 0).getInsertQuery());
-        noReturnAction(new Results("Squat", new Date(12, 12, 2015), 70, 4, 4, 0, 0).getInsertQuery());
-        noReturnAction(new Results("Ab roller", new Date(12, 12, 2015), 10, 6, 4, 0, 0).getInsertQuery());
-        noReturnAction(new Results("Squat", new Date(12, 12, 2015), 90, 3, 2, 0, 0).getInsertQuery());
-        noReturnAction(new Results("Benchpress", new Date(12, 12, 2015), 30, 20, 4, 0, 0).getInsertQuery());
+        try{
+            noReturnAction(new Session(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), 8, 9, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"), 8, 9, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"), 4, 5, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"), 4, 5, "Note").getInsertQuery());
+
+            noReturnAction(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0).getInsertQuery());
+            noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0).getInsertQuery());
+            noReturnAction(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0).getInsertQuery());
+            noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0).getInsertQuery());
+            noReturnAction(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0).getInsertQuery());
+
+            noReturnAction(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55).getInsertQuery());
+            noReturnAction(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60).getInsertQuery());
+            noReturnAction(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50).getInsertQuery());
+            noReturnAction(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20).getInsertQuery());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         
-        noReturnAction(new Results("Running", new Date(12, 12, 2015), 0, 0, 0, 12, 55).getInsertQuery());
-        noReturnAction(new Results("Running", new Date(11, 12, 2015), 0, 0, 0, 20, 60).getInsertQuery());
-        noReturnAction(new Results("Jogging", new Date(8, 2, 2015), 0, 0, 0, 3, 50).getInsertQuery());
-        noReturnAction(new Results("Jogging", new Date(4, 8, 2015), 0, 0, 0, 4, 20).getInsertQuery());
+
+
+
 	}
 
 	private void addExercisesToDb(){
