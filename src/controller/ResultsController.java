@@ -15,7 +15,7 @@ public class ResultsController {
     private BufferedReader br;
     SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
 
-    public ResultsController(){
+    public ResultsController(DatabaseController dbController){
         this.br = new BufferedReader(new InputStreamReader(System.in));
         this.dbController = dbController;
     }

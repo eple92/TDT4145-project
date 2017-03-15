@@ -15,10 +15,11 @@ public class InputController {
 	public QualityController qualityController;
 	private ResultsController resultsController;
 	
-	public InputController(SessionController sessionController, DatabaseController dbController) {
+	public InputController(SessionController sessionController, DatabaseController dbController, ResultsController resultsController) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 		this.sessionController = sessionController;
 		this.dbController = dbController;
+		this.resultsController = resultsController;
 	}
 	
 	public void getAction(){
