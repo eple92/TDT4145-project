@@ -13,19 +13,19 @@ import java.util.Date;
 
 public class ResultsController {
 
-    private DatabaseController dbController;
+    private ControllerManager manager;
     private BufferedReader br;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
     private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 
-    public ResultsController(DatabaseController dbController){
+    public ResultsController(ControllerManager manager){
         this.br = new BufferedReader(new InputStreamReader(System.in));
-        this.dbController = dbController;
+        this.manager = manager;
     }
 
     boolean isValidExersice (String exercise){
-        if (dbController.selectAction(new Exercise(exercise, "").getSelectQuery(), "exercise").isEmpty()){
+        if (manager.getDatabaseController().selectAction(new Exercise(exercise, "").getSelectQuery(), "exercise").isEmpty()){
             return false;
         } else {
             return true;
@@ -33,7 +33,7 @@ public class ResultsController {
     }
 
     boolean isExersiceTime (Date sessionStartDateAndTime){
-        if (dbController.selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, 0, 0,"").getSelectQuery(), "session").isEmpty()){
+        if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, 0, 0,"").getSelectQuery(), "session").isEmpty()){
             return false;
         } else {
             return true;
@@ -215,7 +215,7 @@ public class ResultsController {
 
                 Results results = new Results(exersiceName, start, w, r, s, di, du);
                 String resultsInsertQuery = results.getInsertQuery();
-                dbController.insertAction(resultsInsertQuery);
+                manager.getDatabaseController().insertAction(resultsInsertQuery);
             } else if (answer.equals("n")){
                 addResults();
             } else {

@@ -8,18 +8,12 @@ import model.Session;
 
 public class InputController {
 
-	private SessionController sessionController;
+	private ControllerManager manager;
 	private BufferedReader br;
-	private DatabaseController dbController;
-	private QualityController qualityController;
-	private ResultsController resultsController;
 	
-	public InputController(DatabaseController dbController, SessionController sessionController, QualityController qualityController, ResultsController resultsController) {
+	public InputController(ControllerManager manager) {
+		this.manager = manager;
 		this.br = new BufferedReader(new InputStreamReader(System.in));
-		this.sessionController = sessionController;
-		this.dbController = dbController;
-		this.qualityController = qualityController;
-		this.resultsController = resultsController;
 	}
 	
 	public void getAction(){
@@ -37,18 +31,18 @@ public class InputController {
 			input = br.readLine();
 			System.out.println("Input was: " + input);
 			if (input.equals("1")) {
-				sessionController.addSession();
+				manager.getSessionController().addSession();
 	    	} else if (input.equals("2")) {
-	    		System.out.println("QualityController: " + qualityController);
-	    		qualityController.getSession();
+	    		System.out.println("QualityController: " + manager.getQualityController());
+	    		manager.getQualityController().getSession();
 	    	} else if (input.equals("3")) {
-	    		dbController.showTable(Session.selectAllQuery, "session");
+	    		manager.getDatabaseController().showTable(Session.selectAllQuery, "session");
 	    	} else if (input.equals("4")) {
 				System.out.println("add exersices here");
 				// TODO
 			} else if (input.equals("5")) {
 				System.out.println("add results here");
-				resultsController.addResults();
+				manager.getResultsController().addResults();
 			} else if (input.equals("6")) {
 				System.out.println("thanks for using workoutdiary");
 				System.exit(0);

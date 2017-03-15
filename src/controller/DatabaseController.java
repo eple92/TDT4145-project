@@ -7,8 +7,10 @@ import model.Database;
 public class DatabaseController {
 
 		private Database db;
+		private ControllerManager manager;
 		
-		public DatabaseController() {
+		public DatabaseController(ControllerManager manager) {
+			this.manager = manager;
 			db = new Database();
 		}
 		

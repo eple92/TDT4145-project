@@ -8,10 +8,10 @@ public class QualityController {
 
     private BufferedReader br;
     
-	private DatabaseController dbController;
+	private ControllerManager manager;
 
-	public QualityController(DatabaseController dbController) {
-		this.dbController = dbController;
+	public QualityController(ControllerManager manager) {
+		this.manager = manager;
 		br = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
@@ -27,14 +27,14 @@ public class QualityController {
             	String query = "SELECT sessionStartDateAndTime, exerciseName, MAX(weight) AS 'weight' " + 
         				"FROM Results " + 
         				"GROUP BY exerciseName;";
-            	dbController.showTable(query, "inResults");
+            	manager.getDatabaseController().showTable(query, "inResults");
             	inout = input;
             }
             else if(input.equals("2")){
                 String query = "SELECT sessionStartDateAndTime, exerciseName, MAX(distance) AS 'distance' " + 
         				"FROM Results " + 
         				"GROUP BY exerciseName;";
-                dbController.showTable(query, "outResults");
+                manager.getDatabaseController().showTable(query, "outResults");
                 inout = input;
             }
             else{

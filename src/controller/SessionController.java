@@ -17,11 +17,11 @@ public class SessionController {
 	SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	private BufferedReader br;
 
-	private DatabaseController dbController;
+	private ControllerManager manager;
 	
-	public SessionController(DatabaseController dbController) {
+	public SessionController(ControllerManager manager) {
 		this.br = new BufferedReader(new InputStreamReader(System.in));
-		this.dbController = dbController;
+		this.manager = manager;
 	}
 
 	boolean isValidDate(String date) {
@@ -174,15 +174,15 @@ public class SessionController {
 	    				String sessionInsertQuery = indoor.getInsertQuery();
 	    				String indoorInsertQuery = indoor.getIndoorInserQuery();
 						System.out.println(indoor.getStartDate());
-	    				dbController.insertAction(sessionInsertQuery);
-	    				dbController.insertAction(indoorInsertQuery);
+	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
+	    				manager.getDatabaseController().insertAction(indoorInsertQuery);
 	    				
 	    			} else if (inOrOut.equals("out")) {
 	    				Outdoor outdoor = new Outdoor(start, end, ps, prest, note, t, weather);
 	    				String sessionInsertQuery = outdoor.getInsertQuery();
 	    				String outdoorInsertQuery = outdoor.getOutdoorInserQuery();
-	    				dbController.insertAction(sessionInsertQuery);
-	    				dbController.insertAction(outdoorInsertQuery);
+	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
+	    				manager.getDatabaseController().insertAction(outdoorInsertQuery);
 	    			}
 	    				        		
 	    		} else {
