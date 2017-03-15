@@ -37,6 +37,11 @@ public class Session {
 				getPrestation() + "', '" + getNote() + "');";
 		return q;
 	}
+
+	public String getSelectQuery() {
+		String q = "SELECT * FROM Session WHERE startDateAndTime='" + getStartDateString() + "';";
+		return q;
+	}
 	
 	public Date getStartDate() {
 		if (startDate == null) {
