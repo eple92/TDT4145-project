@@ -2,11 +2,7 @@
 pressing 2 in the opening screen wil do absolutely nothing, and also crash the application.
         - needs connection to database, administrating in the control manager, and some actual function.s
 
-entering space when selecting time crashes the application
-
 its not possible to select midnight (00:00) as a valid time
-
-its possible to select the same start and endtime on the clock
 
 caps is not allowed on in/out
 

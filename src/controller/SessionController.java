@@ -39,15 +39,6 @@ public class SessionController {
 			return false;
 		}
 	}
-
-	
-	boolean isValidTime(String time) {
-		if (time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	
 	public void addSession() throws IOException {
@@ -71,9 +62,13 @@ public class SessionController {
 			if(input.matches("([01]?[0-9]|2[0-3]):([0-5][0-9])-([01]?[0-9]|2[0-3]):([0-5][0-9])")){
 				String from = input.substring(0, 5);
 				String to = input.substring(6, 11);
-				System.out.println(isValidTime(from));
-				System.out.println(isValidTime(to));
-				if (isValidTime(from) & isValidTime(to)) {
+				boolean valid = false;
+				try {
+					valid = timeFormatter.parse(from).before(timeFormatter.parse(to));
+				} catch (ParseException e) {
+				}
+
+				if (valid) {
 					duration = input;
 				} else {
 					System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
