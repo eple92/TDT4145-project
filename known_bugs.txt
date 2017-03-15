@@ -13,3 +13,5 @@ even when you don't push anything to the database, it will tell you that you do
 when you have finished inserting something into the database, you cant restart the application
 
 you're allowed to push an int (2) integer into an database with specifies it to be int (1)
+
+Can't run for more than 99 minutes.
