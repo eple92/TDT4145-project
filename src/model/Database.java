@@ -69,7 +69,8 @@ public class Database {
         try{
             conn = DriverManager.getConnection(HOST_URL + dbName + supressSSLWarnings, USER, PASS);
         } catch (SQLException se){
-            se.printStackTrace();
+            System.out.println("Couldn't connect to db. Check your settings.");
+            //se.printStackTrace();
         }
     }
 
