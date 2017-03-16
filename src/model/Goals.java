@@ -8,41 +8,59 @@ import java.util.Date;
 
 public class Goals {
 
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    private StringProperty exersiceName;
-    private ObjectProperty<Date> sessionStartDateAndTime;
-    protected SimpleIntegerProperty weight;
-    protected SimpleIntegerProperty rep;
-    protected SimpleIntegerProperty exersiceSet;
-    protected SimpleIntegerProperty distance;
-    protected SimpleIntegerProperty duration;
+    private ObjectProperty<Date> goalStartDate;
+    private ObjectProperty<Date> goalEndDate;
+    private StringProperty exerciseName;
+    private SimpleIntegerProperty weight;
+    private SimpleIntegerProperty rep;
+    private SimpleIntegerProperty exerciseSet;
+    private SimpleIntegerProperty distance;
+    private SimpleIntegerProperty duration;
 
-    public Goals (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
-        this.exersiceName = new SimpleStringProperty(exersiceName);
-        this.sessionStartDateAndTime = new SimpleObjectProperty<Date>(sessionStartDateAndTime);
+    public Goals (Date goalStartDate, Date goalEndDate, String exerciseName, int weight, int rep, int exerciseSet, int distance, int duration){
+        this.goalStartDate = new SimpleObjectProperty<>(goalStartDate);
+        this.goalEndDate = new SimpleObjectProperty<>(goalEndDate);
+        this.exerciseName = new SimpleStringProperty(exerciseName);
         this.weight = new SimpleIntegerProperty(weight);
         this.rep = new SimpleIntegerProperty(rep);
-        this.exersiceSet = new SimpleIntegerProperty(exersiceSet);
+        this.exerciseSet = new SimpleIntegerProperty(exerciseSet);
         this.distance = new SimpleIntegerProperty(distance);
         this.duration = new SimpleIntegerProperty(duration);
     }
 
-    public String getInsertQuery() {
-        String q = "Insert into Goals (exersiceName, sessionStartDateAndTIme, weight, rep, exersiceSet, distance, duration) " +
-                "Values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
-                getRep() + ", " + getExersiceSet() + ", " + getDistance() + ", " + getDuration() + ");";
-        return q;
+    public String getExerciseNameString(){return exerciseName.get();}
 
-    }
-
-    public String getExersiceNameString(){return exersiceName.get();}
-
-    public String getSessionStartDateAndTime(){
-        if(sessionStartDateAndTime == null) {
+    public String getGoalStartDateString(){
+        if(goalStartDate == null) {
             return null;
         }else{
-            return formatter.format(sessionStartDateAndTime.get());
+            return dateFormatter.format(goalStartDate.get());
+        }
+    }
+
+    public String getGoalEndDateString(){
+        if(goalEndDate == null) {
+            return null;
+        }else{
+            return dateFormatter.format(goalStartDate.get());
+        }
+    }
+
+    public Date getGoalStartDate() {
+        if (goalStartDate == null) {
+            return null;
+        } else {
+            return goalStartDate.get();
+        }
+    }
+
+    public Date getGoalEndDate() {
+        if (goalEndDate == null) {
+            return null;
+        } else {
+            return goalEndDate.get();
         }
     }
 
@@ -50,7 +68,7 @@ public class Goals {
 
     public int getRep(){return rep.get();}
 
-    public int getExersiceSet(){return exersiceSet.get();}
+    public int getExerciseSet(){return exerciseSet.get();}
 
     public int getDistance(){return distance.get();}
 

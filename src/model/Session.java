@@ -17,30 +17,17 @@ public class Session {
 	private ObjectProperty<Date> startDate;
 	private ObjectProperty<Date> endDate;
 	private String inOrOut = "in";
-	protected SimpleIntegerProperty personalShape;
-	protected SimpleIntegerProperty prestation;
-	protected StringProperty note;
+	private SimpleIntegerProperty personalShape;
+	private SimpleIntegerProperty prestation;
+	private StringProperty note;
 
-	public static final String selectAllQuery = "SELECT * FROM Session;";
-
-	public Session(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note) {
-		this.startDate = new SimpleObjectProperty<Date>(startDate);
-		this.endDate = new SimpleObjectProperty<Date>(endDate);
+	Session(Date startDate, Date endDate, String inOrOut, Integer personalShape, Integer prestation, String note) {
+		this.startDate = new SimpleObjectProperty<>(startDate);
+		this.endDate = new SimpleObjectProperty<>(endDate);
+		this.inOrOut = inOrOut;
 		this.personalShape = new SimpleIntegerProperty(personalShape);
 		this.prestation = new SimpleIntegerProperty(prestation);
 		this.note = new SimpleStringProperty(note); 
-	}
-	
-	public String getInsertQuery() {
-		String q = "INSERT INTO Session(startDateAndTime, endDateAndTime, inOrOut, personalShape, prestation, note) VALUES ('" +
-				getStartDateString() + "', '" + getEndDateString()+ "', '" + this.inOrOut + "', '" + getPersonalShape() + "', '" +
-				getPrestation() + "', '" + getNote() + "');";
-		return q;
-	}
-
-	public String getSelectQuery() {
-		String q = "SELECT * FROM Session WHERE startDateAndTime='" + getStartDateString() + "';";
-		return q;
 	}
 	
 	public Date getStartDate() {
@@ -86,5 +73,9 @@ public class Session {
 	public String getNote() {
 		return note.get();
 	}
+
+	public String getInOrOut() {
+	    return inOrOut;
+    }
 
 }

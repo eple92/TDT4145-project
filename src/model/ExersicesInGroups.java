@@ -6,20 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class ExersicesInGroups {
 
     private SimpleStringProperty parentGroup;
-    private SimpleStringProperty exersice;
+    private SimpleStringProperty exercise;
 
-    public ExersicesInGroups(String parentGroup, String exersice){
+    public ExersicesInGroups(String parentGroup, String exercise){
         this.parentGroup = new SimpleStringProperty(parentGroup);
-        this.exersice = new SimpleStringProperty(exersice);
-    }
-
-    public String getInsertQuery(){
-        String q = "Insert into ExersicesInGroups (parentGroup, childGroup) " +
-                "Values('"+getParentGroup()+"', '"+getExersice()+"')";
-        return q;
+        this.exercise = new SimpleStringProperty(exercise);
     }
 
     public String getParentGroup(){return parentGroup.get();}
 
-    public String getExersice(){return exersice.get();}
+    public String getExersice(){return exercise.get();}
 }
