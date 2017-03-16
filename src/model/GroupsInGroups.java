@@ -14,7 +14,11 @@ public class GroupsInGroups {
         this.childGroup = new SimpleStringProperty(childGroup);
     }
 
-    public String getParentGroup(){return parentGroup.get();}
+    public String getParentGroup(){
+    	return parentGroup.get();
+    }
 
-    public String getChildGroup(){return childGroup.get();}
+    public String getChildGroup(){
+    	return childGroup.get();
+    }
 }

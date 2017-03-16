@@ -1,6 +1,5 @@
 package model;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -27,7 +26,6 @@ public class PulsAndGPS {
         this.metersAboveOcean = new SimpleIntegerProperty(metersAboveOcean);
         this.results_fk = new SimpleIntegerProperty(results_fk);
     }
-
     public String getDateAndTime(){
         if(dateAndTime == null) {
             return null;
@@ -36,15 +34,25 @@ public class PulsAndGPS {
         }
     }
 
-    public int getPuls(){return puls.get();}
+    public int getPuls(){
+    	return puls.get();
+    }
 
-    public int getLongitude(){return longitude.get();}
+    public int getLongitude(){
+    	return longitude.get();
+    }
 
-    public int getLatitude(){return latitude.get();}
+    public int getLatitude(){
+    	return latitude.get();
+    }
 
-    public int getMetersAboveOcean(){return metersAboveOcean.get();}
+    public int getMetersAboveOcean(){
+    	return metersAboveOcean.get();
+    }
 
-    public int getResults_fk(){return  results_fk.get();}
+    public int getResults_fk(){
+    	return  results_fk.get();
+    }
 
 
 }

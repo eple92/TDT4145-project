@@ -34,7 +34,7 @@ public class InputController {
         } else {
 	        manager.getDatabaseController().makeNewConnection();
         }
-    	System.out.println("What do you want to do? \n" +
+    	System.out.println("\n\nWhat do you want to do? \n" +
                 "1. New session \n" +
                 "2. Get best result \n" +
                 "3. See all sessions \n" +
@@ -51,7 +51,6 @@ public class InputController {
                     manager.getSessionController().addSession();
                     break;
                 case "2":
-                    System.out.println("QualityController: " + manager.getQualityController());
                     manager.getQualityController().getSession();
                     break;
                 case "3":

@@ -17,7 +17,6 @@ import model.Session;
 
 public class SessionController {
 
-	
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
 	private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");

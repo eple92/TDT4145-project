@@ -12,5 +12,7 @@ public class Groups {
         this.groupName = new SimpleStringProperty(groupName);
     }
 
-    public String getGroupName(){return groupName.get();}
+    public String getGroupName(){
+    	return groupName.get();
+    }
 }
