@@ -51,11 +51,6 @@ public class ResultsController {
             return false;
         }
         return true;
-        /*if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, "in", 0, 0,"").getSelectQuery(), "session").isEmpty()){
-            return false;
-        } else {
-            return true;
-        }*/
     }
 
     private boolean isValidDate(String date) {
