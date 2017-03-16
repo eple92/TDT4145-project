@@ -229,6 +229,38 @@ public class DatabaseController {
         return result;
     }
 
+    public List<String> selectAllExerciseNamesFromSession(Date startDateAndTime){
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        ResultSet rs;
+        List<String > result = new ArrayList<>();
+        String q = "SELECT exerciseName FROM SessionExercises WHERE sessionStartDateAndTime = ?";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(1, new Timestamp(startDateAndTime.getTime()));
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("ERROR: RS is null");
+                return null;
+            } else {
+                while(rs.next()) {
+                    result.add(rs.getString("exerciseName"));
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+        return result;
+    }
+
     public ArrayList<Session> selectAllSessions() {
         db.connectToDB();
         Connection conn = db.getConnection();
