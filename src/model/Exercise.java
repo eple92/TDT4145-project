@@ -10,8 +10,6 @@ public class Exercise {
 	
 	private StringProperty name;
 	private StringProperty description;
-			
-	public static final String selectAllQuery = "SELECT * FROM Exercise;";
 
 	public Exercise(String name, String description) {
 		this.name = new SimpleStringProperty(name);
@@ -24,13 +22,5 @@ public class Exercise {
 	
 	public String getDescription() {
 		return description.get();
-	}
-
-	public String getInstertQuery() {
-		return "INSERT INTO Exercise(exerciseName, description) VALUES('" + getName() + "', '" + getDescription() + "');";
-	}
-
-	public String getSelectQuery() {
-		return "SELECT * FROM Exercise WHERE exerciseName='" + getName() + "';";
 	}
 }

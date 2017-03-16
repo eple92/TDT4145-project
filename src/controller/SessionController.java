@@ -120,6 +120,8 @@ public class SessionController {
             }
             if (isSessionTime(start)){
                 System.out.println("There is already a session registered on this time. Try again.");
+                date = null;
+                duration = null;
             } else {
                 preexistingSession = false;
             }
@@ -146,14 +148,21 @@ public class SessionController {
     	System.out.println("Was it in or out?");
     	while (inOrOut == null) {
     		String input = br.readLine();
-            if (input.equals("q")) {return;}
-    		if (input.equals("in") || input.equals("IN")) {
-				inOrOut = "in";
-    		} else if (input.equals("out") || input.equals("OUT")) {
-				inOrOut = "out";
-    		} else {
-    			System.out.println("That is not a valid option. In or out?");
-    		}
+            switch (input) {
+                case "q":
+                    return;
+                case "in":
+                case "IN":
+                    inOrOut = "in";
+                    break;
+                case "out":
+                case "OUT":
+                    inOrOut = "out";
+                    break;
+                default:
+                    System.out.println("That is not a valid option. In or out?");
+                    break;
+            }
     	}
     	if(inOrOut.equals("in")){
 			System.out.println("How was the airconditioning?");

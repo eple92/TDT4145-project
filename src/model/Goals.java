@@ -12,15 +12,15 @@ public class Goals {
 
     private StringProperty exersiceName;
     private ObjectProperty<Date> sessionStartDateAndTime;
-    protected SimpleIntegerProperty weight;
-    protected SimpleIntegerProperty rep;
-    protected SimpleIntegerProperty exersiceSet;
-    protected SimpleIntegerProperty distance;
-    protected SimpleIntegerProperty duration;
+    private SimpleIntegerProperty weight;
+    private SimpleIntegerProperty rep;
+    private SimpleIntegerProperty exersiceSet;
+    private SimpleIntegerProperty distance;
+    private SimpleIntegerProperty duration;
 
     public Goals (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
         this.exersiceName = new SimpleStringProperty(exersiceName);
-        this.sessionStartDateAndTime = new SimpleObjectProperty<Date>(sessionStartDateAndTime);
+        this.sessionStartDateAndTime = new SimpleObjectProperty<>(sessionStartDateAndTime);
         this.weight = new SimpleIntegerProperty(weight);
         this.rep = new SimpleIntegerProperty(rep);
         this.exersiceSet = new SimpleIntegerProperty(exersiceSet);
@@ -30,13 +30,13 @@ public class Goals {
 
     public String getInsertQuery() {
         String q = "Insert into Goals (exersiceName, sessionStartDateAndTIme, weight, rep, exersiceSet, distance, duration) " +
-                "Values("+getExersiceNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
-                getRep() + ", " + getExersiceSet() + ", " + getDistance() + ", " + getDuration() + ");";
+                "Values("+ getExerciseNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
+                getRep() + ", " + getExerciseSet() + ", " + getDistance() + ", " + getDuration() + ");";
         return q;
 
     }
 
-    public String getExersiceNameString(){return exersiceName.get();}
+    public String getExerciseNameString(){return exersiceName.get();}
 
     public String getSessionStartDateAndTime(){
         if(sessionStartDateAndTime == null) {
@@ -50,7 +50,7 @@ public class Goals {
 
     public int getRep(){return rep.get();}
 
-    public int getExersiceSet(){return exersiceSet.get();}
+    public int getExerciseSet(){return exersiceSet.get();}
 
     public int getDistance(){return distance.get();}
 

@@ -23,20 +23,12 @@ public class Results {
 
     public Results (String exerciseName, Date sessionStartDateAndTime, int weight, int rep, int exerciseSet, int distance, int duration){
         this.exerciseName = new SimpleStringProperty(exerciseName);
-        this.sessionStartDateAndTime = new SimpleObjectProperty<Date>(sessionStartDateAndTime);
+        this.sessionStartDateAndTime = new SimpleObjectProperty<>(sessionStartDateAndTime);
         this.weight = new SimpleIntegerProperty(weight);
         this.rep = new SimpleIntegerProperty(rep);
         this.exerciseSet = new SimpleIntegerProperty(exerciseSet);
         this.distance = new SimpleIntegerProperty(distance);
         this.duration = new SimpleIntegerProperty(duration);
-    }
-
-    public String getInsertQuery() {
-        String q = "Insert into Results (exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, distance, duration) " +
-                "Values('"+getExerciseNameString()+ "', '" + getSessionStartDateAndTimeString() + "', " + getWeight() + ", " +
-                getRep() + ", " + getExerciseSet() + ", " + getDistance() + ", " + getDuration() + ");";
-        return q;
-
     }
 
     public String getExerciseNameString(){return exerciseName.get();}

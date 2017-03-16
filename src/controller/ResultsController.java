@@ -165,20 +165,25 @@ class ResultsController {
                         " kg, performed " + rep + " repetitions for" + exerciseSet + " sets and ran " + distance +
                 " km, for " + duration + " min. Is that correct? (y/n)");
         String answer = br.readLine();
-        if (answer.equals("q")) {return;}
-        if(answer.equals("y")){
-            Integer w = Integer.parseInt(weight);
-            Integer r = Integer.parseInt(rep);
-            Integer s = Integer.parseInt(exerciseSet);
-            Integer di = Integer.parseInt(distance);
-            Integer du = Integer.parseInt(duration);
+        switch (answer) {
+            case "q":
+                return;
+            case "y":
+                Integer w = Integer.parseInt(weight);
+                Integer r = Integer.parseInt(rep);
+                Integer s = Integer.parseInt(exerciseSet);
+                Integer di = Integer.parseInt(distance);
+                Integer du = Integer.parseInt(duration);
 
-            Results results = new Results(exerciseName, start, w, r, s, di, du);
-            manager.getDatabaseController().insertResults(results);
-        } else if (answer.equals("n")){
-            addResults();
-        } else {
-            System.out.println("not a valid input, (y/n)");
+                Results results = new Results(exerciseName, start, w, r, s, di, du);
+                manager.getDatabaseController().insertResults(results);
+                break;
+            case "n":
+                addResults();
+                break;
+            default:
+                System.out.println("not a valid input, (y/n)");
+                break;
         }
     }
 }

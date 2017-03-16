@@ -10,25 +10,25 @@ import java.util.Date;
 
 import model.*;
 
-public class DatabaseController {
+class DatabaseController {
 
 		private Database db;
 		private ControllerManager manager;
 		private PreparedStatement pstmt;
 		
-		public DatabaseController(ControllerManager manager) {
+		DatabaseController(ControllerManager manager) {
 			this.manager = manager;
 		}
 
-		public void makeNewConnection(){
+		void makeNewConnection(){
             db = new Database();
         }
 
-        public void createDatabase(){
+        void createDatabase(){
 		    db.recreateDB();
         }
 
-        public void populateDatabase() {
+        void populateDatabase() {
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
             List<String> exercises = Arrays.asList("Arm Circles", "Squat", "Ab roller", "Benchpress", "Running", "Jogging");
 
