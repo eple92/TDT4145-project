@@ -19,6 +19,8 @@ public class Database {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private String HOST_URL = "jdbc:mysql://localhost/";
 
+    private String supressSSLWarnings = "?useSSL=false";
+
 	// Database credentials
 	private String USER = "user";
 	private String PASS = "password";
@@ -56,7 +58,7 @@ public class Database {
 
     private void connectToHost(){
 	    try{
-            conn = DriverManager.getConnection(HOST_URL, USER, PASS);
+            conn = DriverManager.getConnection(HOST_URL + supressSSLWarnings, USER, PASS);
         } catch (SQLException se){
 	        se.printStackTrace();
         }
@@ -64,7 +66,7 @@ public class Database {
 
     public  void connectToDB(){
         try{
-            conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
+            conn = DriverManager.getConnection(HOST_URL + dbName + supressSSLWarnings, USER, PASS);
         } catch (SQLException se){
             se.printStackTrace();
         }
