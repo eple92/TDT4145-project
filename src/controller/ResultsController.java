@@ -214,8 +214,9 @@ public class ResultsController {
                 }
 
                 Results results = new Results(exersiceName, start, w, r, s, di, du);
-                String resultsInsertQuery = results.getInsertQuery();
-                manager.getDatabaseController().insertAction(resultsInsertQuery);
+                /*String resultsInsertQuery = results.getInsertQuery();
+                manager.getDatabaseController().insertAction(resultsInsertQuery);*/
+                manager.getDatabaseController().insertResults(results);
             } else if (answer.equals("n")){
                 addResults();
             } else {

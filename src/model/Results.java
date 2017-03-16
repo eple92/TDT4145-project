@@ -33,7 +33,7 @@ public class Results {
 
     public String getInsertQuery() {
         String q = "Insert into Results (exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, distance, duration) " +
-                "Values('"+getExerciseNameString()+ "', '" + getSessionStartDateAndTime() + "', " + getWeight() + ", " +
+                "Values('"+getExerciseNameString()+ "', '" + getSessionStartDateAndTimeString() + "', " + getWeight() + ", " +
                 getRep() + ", " + getExerciseSet() + ", " + getDistance() + ", " + getDuration() + ");";
         return q;
 
@@ -41,11 +41,19 @@ public class Results {
 
     public String getExerciseNameString(){return exerciseName.get();}
 
-    public String getSessionStartDateAndTime(){
+    public String getSessionStartDateAndTimeString(){
         if(sessionStartDateAndTime == null) {
             return null;
         }else{
             return formatter.format(sessionStartDateAndTime.get());
+        }
+    }
+
+    public Date getSessionStartDateAndTime() {
+        if (sessionStartDateAndTime == null) {
+            return null;
+        } else {
+            return sessionStartDateAndTime.get();
         }
     }
 

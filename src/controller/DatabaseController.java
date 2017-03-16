@@ -37,16 +37,16 @@ public class DatabaseController {
                 insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0));
                 insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0));
 
-                db.noReturnAction(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0).getInsertQuery());
-                db.noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0).getInsertQuery());
-                db.noReturnAction(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0).getInsertQuery());
-                db.noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0).getInsertQuery());
-                db.noReturnAction(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0).getInsertQuery());
+                insertResults(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0));
+                insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0));
+                insertResults(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0));
+                insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0));
+                insertResults(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0));
 
-                db.noReturnAction(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55).getInsertQuery());
-                db.noReturnAction(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60).getInsertQuery());
-                db.noReturnAction(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50).getInsertQuery());
-                db.noReturnAction(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20).getInsertQuery());
+                insertResults(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55));
+                insertResults(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60));
+                insertResults(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50));
+                insertResults(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -88,16 +88,12 @@ public class DatabaseController {
                 } catch(SQLException se){
                     se.printStackTrace();
                 }
-
             }
-
-
         }
 
         public void insertIndoorSession(Indoor session){
             db.connectToDB();
             Connection conn = db.getConnection();
-            System.out.println(conn.toString());
             insertSession(session, conn);
             String q = "INSERT INTO indoorsession(indoorStartDateAndTime, aircondition, viewers) VALUES (?,?,?);";
             try {
@@ -123,7 +119,6 @@ public class DatabaseController {
     public void insertOutdoorSession(Outdoor session){
         db.connectToDB();
         Connection conn = db.getConnection();
-        System.out.println(conn.toString());
         insertSession(session, conn);
         String q = "INSERT INTO outdooression(outdoorStartDateAndTime, temperature, weather) VALUES (?,?,?);";
         try {
@@ -143,6 +138,32 @@ public class DatabaseController {
             }
         }
         db.closeConnection();
+    }
 
+    public void insertResults(Results results){
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        String q = "INSERT INTO Results (exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, distance, duration) VALUES (?,?,?,?,?,?,?);";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setString(1,results.getExerciseNameString());
+            pstmt.setTimestamp(2, new Timestamp(results.getSessionStartDateAndTime().getTime()));
+            pstmt.setInt(3, results.getWeight());
+            pstmt.setInt(4,results.getRep());
+            pstmt.setInt(4,results.getExerciseSet());
+            pstmt.setInt(4,results.getDistance());
+            pstmt.setInt(4,results.getDuration());
+            pstmt.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
     }
 }
