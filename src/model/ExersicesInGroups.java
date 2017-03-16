@@ -3,6 +3,8 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 
+
+// Unused class. Related functionality not yet implemented
 public class ExersicesInGroups {
 
     private SimpleStringProperty parentGroup;

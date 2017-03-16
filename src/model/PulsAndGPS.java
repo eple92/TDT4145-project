@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// Unused class. Related functionality not yet implemented
 public class PulsAndGPS {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -25,12 +26,6 @@ public class PulsAndGPS {
         this.latitude = new SimpleIntegerProperty(latitude);
         this.metersAboveOcean = new SimpleIntegerProperty(metersAboveOcean);
         this.results_fk = new SimpleIntegerProperty(results_fk);
-    }
-
-    public String getInsertQuery(){
-        String q = "Insert into Puls and GPS (dateAndTime, puls, longitude, latitude, metersAboveOcean) " +
-                "Values ('"+getDateAndTime()+"', "+getPuls()+", "+getLongitude()+", "+ getLatitude()+", "+getMetersAboveOcean()+", "+getResults_fk()+")";
-        return q;
     }
 
     public String getDateAndTime(){

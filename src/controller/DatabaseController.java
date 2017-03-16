@@ -177,6 +177,7 @@ class DatabaseController {
         db.closeConnection();
     }
 
+    // Unused method. Related functionality not yet implemented
     void insertGoal (Goals goal) {
         db.connectToDB();
         Connection conn = db.getConnection();
@@ -364,6 +365,7 @@ class DatabaseController {
         return result;
     }
 
+    // Unused method. Related functionality not yet implemented
     List<Results> selectAllResults() {
         db.connectToDB();
         Connection conn = db.getConnection();

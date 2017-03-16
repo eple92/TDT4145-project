@@ -6,6 +6,7 @@ import javafx.beans.property.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// Unused class. Related functionality not yet implemented. Only referenced by unused method
 public class Goals {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
