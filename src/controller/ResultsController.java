@@ -90,7 +90,7 @@ public class ResultsController {
     }
 
     public void addResults() throws IOException {
-        System.out.println("here you can add results from your exercise.");
+        System.out.println("Here you can add results from your exercise.");
 
         String sessionStartDateAndTime = null;
         Date start = null;

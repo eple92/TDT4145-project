@@ -66,7 +66,6 @@ public class InputController {
                     System.out.println();
                 }
 			} else if (input.equals("4")) {
-				System.out.println("add results here");
 				manager.getResultsController().addResults();
 			} else if (input.equals("5")) {
 			    manager.getSetupController().setUp();
