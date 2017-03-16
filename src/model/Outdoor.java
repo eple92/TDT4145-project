@@ -21,4 +21,12 @@ public class Outdoor extends Session {
 		
 		return q;
 	}
+
+	public int getTemperature() {
+		return temperature;
+	}
+
+	public String getWeather() {
+		return weather;
+	}
 }
