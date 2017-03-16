@@ -18,8 +18,8 @@ public class Goals {
     private SimpleIntegerProperty distance;
     private SimpleIntegerProperty duration;
 
-    public Goals (String exersiceName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
-        this.exersiceName = new SimpleStringProperty(exersiceName);
+    public Goals (String exerciseName, Date sessionStartDateAndTime, int weight, int rep, int exersiceSet, int distance, int duration){
+        this.exersiceName = new SimpleStringProperty(exerciseName);
         this.sessionStartDateAndTime = new SimpleObjectProperty<>(sessionStartDateAndTime);
         this.weight = new SimpleIntegerProperty(weight);
         this.rep = new SimpleIntegerProperty(rep);
