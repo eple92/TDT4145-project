@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ResultsController {
@@ -24,15 +25,15 @@ public class ResultsController {
         this.manager = manager;
     }
 
-    boolean isValidExersice (String exercise){
-        if (manager.getDatabaseController().selectAction(new Exercise(exercise, "").getSelectQuery(), "exercise").isEmpty()){
+    private boolean isValidExercise(String exercise){
+        ArrayList<Exercise> getExercise = manager.getDatabaseController().selectExercise(exercise);
+        if (getExercise == null || getExercise.isEmpty()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
-    boolean isExersiceTime (Date sessionStartDateAndTime){
+    private boolean isExerciseTime(Date sessionStartDateAndTime){
         if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, "in", 0, 0,"").getSelectQuery(), "session").isEmpty()){
             return false;
         } else {
@@ -40,7 +41,7 @@ public class ResultsController {
         }
     }
 
-    boolean isValidDate(String date) {
+    private boolean isValidDate(String date) {
         if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
             try {
                 dateFormatter.setLenient(false);
@@ -59,7 +60,7 @@ public class ResultsController {
         String exersiceName = null;
         while (exersiceName == null){
             String input = br.readLine();
-            if (isValidExersice(input)){
+            if (isValidExercise(input)){
                 exersiceName = input;
             } else {
                 System.out.println("Thats not a recognized exercise, please try again");
@@ -99,7 +100,7 @@ public class ResultsController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (isExersiceTime(start)){
+            if (isExerciseTime(start)){
                 notValidSessionTime = false;
             }
         }

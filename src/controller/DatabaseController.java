@@ -1,9 +1,6 @@
 package controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -165,5 +162,72 @@ public class DatabaseController {
             }
         }
         db.closeConnection();
+    }
+
+    public ArrayList<Exercise> selectExercise(String exerciseName) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        ResultSet rs;
+        ArrayList<Exercise> result = new ArrayList<>();
+        String q = "SELECT * FROM Exercise WHERE exerciseName = ?;";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setString(1,exerciseName);
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("ERROR: RS is null");
+                return null;
+            } else {
+                while(rs.next()) {
+                    result.add(new Exercise(rs.getString("exerciseName"),rs.getString("description")));
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+        return result;
+    }
+
+    public ArrayList<Session> selectAllSessions() {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        ResultSet rs;
+        ArrayList<Session> result = new ArrayList<>();
+        String q = "SELECT * FROM session left join indoorsession on startDateAndTime=indoorStartDateAndTime left join outdoorsession on startDateAndTime = outdoorStartDateAndTime;";
+        try {
+            pstmt = conn.prepareStatement(q);
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("ERROR: RS is null");
+                return null;
+            } else {
+                while(rs.next()) {
+                    if (rs.getString("inOrOut").equals("in")) {
+                        result.add(new Indoor(rs.getTimestamp("startDateAndTime"), rs.getTimestamp("endDateAndTime"), rs.getInt("personalShape"), rs.getInt("prestation"), rs.getString("note"), rs.getString("aircondition"), rs.getInt("viewers")));
+                    } else {
+                        result.add(new Outdoor(rs.getTimestamp("startDateAndTime"), rs.getTimestamp("endDateAndTime"), rs.getInt("personalShape"), rs.getInt("prestation"), rs.getString("note"), rs.getInt("temperature"), rs.getString("weather")));
+                    }
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+        return result;
     }
 }

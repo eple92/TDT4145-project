@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+import model.Indoor;
+import model.Outdoor;
 import model.Session;
 
 public class InputController {
@@ -51,7 +54,19 @@ public class InputController {
 	    		System.out.println("QualityController: " + manager.getQualityController());
 	    		manager.getQualityController().getSession();
 	    	} else if (input.equals("3")) {
-	    		manager.getDatabaseController().showTable(Session.selectAllQuery, "session");
+                ArrayList<Session> allSessions = manager.getDatabaseController().selectAllSessions();
+                for (Session s : allSessions) {
+                    System.out.print(s.getStartDateString() + " to " + s.getEndDateString() +
+                            ". Personal shape: " + s.getPersonalShape() + ". Performance: " + s.getPrestation() +
+                            ". Note: " + s.getNote());
+                    if (s.getInOrOut().equals("out")){
+                        System.out.print(" Location: Outdoor. Temperature: " + ((Outdoor) s).getTemperature() + ". Weather: " + ((Outdoor) s).getWeather());
+                    } else {
+                        System.out.print(" Location: Indoor. Aircondition: " + ((Indoor) s).getAircondition() + ". Viewers: " + ((Indoor) s).getViewers());
+                    }
+                    System.out.println();
+                }
+	    		/*manager.getDatabaseController().showTable(Session.selectAllQuery, "session");*/
 	    	} else if (input.equals("4")) {
 				System.out.println("add exercises here");
 				// TODO
