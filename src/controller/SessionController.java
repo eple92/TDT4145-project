@@ -130,9 +130,9 @@ public class SessionController {
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
     			" and your performance " + prestation + ". Notes: " + note + ". Is that correct? (y/n)");
-    	String correct = null; 
+    	boolean notValidAnswer = true;
     
-    	while (correct == null) {
+    	while (notValidAnswer) {
     		String input = br.readLine();
 	    	if (input.equals("y")) {
 	    		String startHour = duration.substring(0, 5);
@@ -189,9 +189,10 @@ public class SessionController {
 	    		} else {
 	    			System.out.println("Something is wrong. Start and end couldn't be parsed");
 	    		}
-	    		
+	    		notValidAnswer = false;
 	    	} else if (input.equals("n")) {
 	    		System.out.println("Sorry, my bad. Let's start over.");
+	    		notValidAnswer = false;
 	    		addSession();
 	    	} else {
 	    		System.out.println("Sorry, that is not a valid answer. Try again.");
