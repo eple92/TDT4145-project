@@ -459,30 +459,6 @@ public class Database {
 	}
 
 	public void populateDatabase() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
-
-        try{
-            noReturnAction(new Session(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), "in", 8, 9, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"), "in", 8, 9, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"), "in", 4, 5, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"), "in", 4, 5, "Note").getInsertQuery());
-
-            noReturnAction(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0).getInsertQuery());
-            noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0).getInsertQuery());
-            noReturnAction(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0).getInsertQuery());
-            noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0).getInsertQuery());
-            noReturnAction(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0).getInsertQuery());
-
-            noReturnAction(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55).getInsertQuery());
-            noReturnAction(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60).getInsertQuery());
-            noReturnAction(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50).getInsertQuery());
-            noReturnAction(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20).getInsertQuery());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-
-
 
 	}
 

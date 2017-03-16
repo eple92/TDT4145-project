@@ -4,12 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import model.Database;
-import model.Indoor;
-import model.Outdoor;
-import model.Session;
+import model.*;
 
 public class DatabaseController {
 
@@ -30,7 +29,27 @@ public class DatabaseController {
         }
 
         public void populateDatabase() {
-            db.populateDatabase();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+
+            try{
+                insertIndoorSession(new Indoor(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"),8, 9, "Note", "", 0));
+                insertIndoorSession(new Indoor(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"),8, 9, "Note", "", 0));
+                insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0));
+                insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0));
+
+                db.noReturnAction(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0).getInsertQuery());
+                db.noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0).getInsertQuery());
+                db.noReturnAction(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0).getInsertQuery());
+                db.noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0).getInsertQuery());
+                db.noReturnAction(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0).getInsertQuery());
+
+                db.noReturnAction(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55).getInsertQuery());
+                db.noReturnAction(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60).getInsertQuery());
+                db.noReturnAction(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50).getInsertQuery());
+                db.noReturnAction(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20).getInsertQuery());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 		
 		public void insertAction(String query) {
