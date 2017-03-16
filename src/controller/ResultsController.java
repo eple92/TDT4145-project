@@ -1,6 +1,5 @@
 package controller;
 
-import model.Exercise;
 import model.Results;
 import model.Session;
 
@@ -26,14 +25,6 @@ public class ResultsController {
         this.manager = manager;
     }
 
-    private boolean isValidExercise(String exercise){
-        ArrayList<Exercise> getExercise = manager.getDatabaseController().selectExercise(exercise);
-        if (getExercise == null || getExercise.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
     private boolean exercisePerformedInSession(String exercise, Date startDateAndTime) {
         System.out.println(exercise);
         List<String> exercisesPerformed = manager.getDatabaseController().selectAllExerciseNamesFromSession(startDateAndTime);
@@ -45,7 +36,7 @@ public class ResultsController {
         return false;
     }
 
-    private boolean isExerciseTime(Date sessionStartDateAndTime){
+    private boolean isSessionTime(Date sessionStartDateAndTime){
         ArrayList<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
         if (sessions == null || sessions.isEmpty()) {
             return false;
@@ -67,12 +58,44 @@ public class ResultsController {
         }
     }
 
+    private String addResultIfApplicable(String qIsApplicable, String qResult, String check){
+        String result = null;
+        System.out.println(qIsApplicable);
+        try {
+            boolean validYN = false;
+            while (!validYN) {
+                String input = br.readLine();
+                if (input.equals("y")) {
+                    while (result == null){
+                        System.out.println(qResult);
+                        input = br.readLine();
+                        if (input.matches(check)) {
+                            result = input;
+                        } else {
+                            System.out.println("Not valid input. Try again.");
+                        }
+                    }
+                    validYN = true;
+                } else if (input.equals("n")){
+                    result = "0";
+                    validYN = true;
+                } else {
+                    System.out.println("That was not a valid answer. Please enter y or n");
+                }
+            }
+
+        } catch (IOException e){
+            System.out.println("Sorry, couldn't read line.");
+        }
+        return result;
+    }
+
     public void addResults() throws IOException {
         System.out.println("here you can add results from your exercise.");
 
-        boolean notValidSessionTime = true;
         String sessionStartDateAndTime = null;
         Date start = null;
+        String exerciseName = null;
 
         while(start == null) {
             System.out.println("When was the session (dd.mm.yy)?");
@@ -104,13 +127,12 @@ public class ResultsController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (!isExerciseTime(start)){
+            if (!isSessionTime(start)){
                 start = null;
             }
         }
 
         System.out.println("which exercise did you perform?");
-        String exerciseName = null;
         while (exerciseName == null){
             String input = br.readLine();
             if (exercisePerformedInSession(input, start)){
@@ -120,14 +142,14 @@ public class ResultsController {
             }
         }
 
-        System.out.println("Did you perform this exercise outside, or inside?");
-        String inOrOut = null;
-        String weight = null;
-        String rep = null;
-        String exerciseSet = null;
-        String distance = null;
-        String duration = null;
-        while (inOrOut==null){
+        //System.out.println("Did you perform this exercise outside, or inside?");
+        //String inOrOut = null;
+        String weight = addResultIfApplicable("Is weight relevant to your result? (y/n)", "What weight did you use?", "[0-9]{1,2}");
+        String rep = addResultIfApplicable("Are repetitions relevant to your result? (y/n)", "How many repetitions did you manage?", "[0-9]{1,2}");
+        String exerciseSet = addResultIfApplicable("Are sets relevant to your result? (y/n)", "How many sets did you manage?", "[0-9]{1,2}");
+        String distance = addResultIfApplicable("Is distance relevant to your result? (y/n)", "What distance did you cover in km?", "[0-9]{1,2}");
+        String duration = addResultIfApplicable("Is time relevant to your result? (y/n)", "How long did you run in minutes?", "[0-9]{1,4}");
+        /*while (inOrOut==null){
             String input = br.readLine();
             if(input.equals("in")){
                 inOrOut = "in";
@@ -136,8 +158,9 @@ public class ResultsController {
             } else {
                 System.out.println("Please choose in or out:");
             }
-        }
-        if(inOrOut.equals("in")){
+        }*/
+
+        /*if(inOrOut.equals("in")){
 
             System.out.println("What weight did you use?");
             while(weight == null){
@@ -200,24 +223,19 @@ public class ResultsController {
             System.out.println("You exercised " + exerciseName +
                     " in your session at " + sessionStartDateAndTime + ", you ran " + distance +
                     " km, for " + duration + " min. Is that correct? (y/n)");
-        }
+        }*/
 
+        System.out.println("You exercised " + exerciseName +
+                " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
+                        " kg, performed " + rep + " repetitions for" + exerciseSet + " sets and ran " + distance +
+                " km, for " + duration + " min. Is that correct? (y/n)");
         String answer = br.readLine();
         if(answer.equals("y")){
-            Integer w = 0;
-            Integer r = 0;
-            Integer s = 0;
-            Integer di = 0;
-            Integer du = 0;
-
-            if (inOrOut.equals("in")) {
-                w = Integer.parseInt(weight);
-                r = Integer.parseInt(rep);
-                s = Integer.parseInt(exerciseSet);
-            } else {
-                di = Integer.parseInt(distance);
-                du = Integer.parseInt(duration);
-            }
+            Integer w = Integer.parseInt(weight);
+            Integer r = Integer.parseInt(rep);
+            Integer s = Integer.parseInt(exerciseSet);
+            Integer di = Integer.parseInt(distance);
+            Integer du = Integer.parseInt(duration);
 
             Results results = new Results(exerciseName, start, w, r, s, di, du);
             /*String resultsInsertQuery = results.getInsertQuery();
