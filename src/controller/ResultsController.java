@@ -132,6 +132,7 @@ class ResultsController {
                 e.printStackTrace();
             }
             if (!isSessionTime(start)){
+                System.out.println("Session not found. Please enter date and start time of an existing session.");
                 start = null;
             }
         }
