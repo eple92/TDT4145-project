@@ -67,6 +67,15 @@ public class SessionController {
         String date = null;
         String duration = null;
 
+        String inOrOut = null;
+        String airCond = "";
+        Integer viewers = null;
+        Integer temp = null;
+        String weather = "";
+
+        Integer personalShape = null;
+        Integer prestation = null;
+
         boolean preexistingSession = true;
         while (preexistingSession) {
             System.out.println("When was the session (dd.mm.yy)?");
@@ -136,11 +145,6 @@ public class SessionController {
         }
     	
     	System.out.println("Was it in or out?");
-    	String inOrOut = null;
-    	String airCond = "";
-		Integer viewers = null;
-    	String temp = null;
-    	String weather = "";
     	while (inOrOut == null) {
     		String input = br.readLine();
     		if (input.equals("in") || input.equals("IN")) {
@@ -168,7 +172,7 @@ public class SessionController {
 			while (temp == null){
 			    String input = br.readLine();
 			    if (input.matches("^-?\\d{1,2}")) {
-			        temp = input;
+			        temp = Integer.parseInt(input);
                 } else {
                     System.out.println("This is not a valid temperature. Try Again.");
                 }
@@ -178,22 +182,29 @@ public class SessionController {
 		}
     	
     	System.out.println("What was your personal shape (1-10)?");
-    	String personalShape = null;
+
     	while (personalShape == null) {
     		String input = br.readLine();
-    		if (input.matches("\\d{1,2}") && Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 10) {
-    			personalShape = input;
+    		if (input.matches("\\d{1,2}")) {
+    			personalShape = Integer.parseInt(input);
+    			if(personalShape<1 || personalShape>10) {
+    			    personalShape = null;
+                    System.out.println("The number is not between 1 and 10. Try again.");
+                }
     		} else {
-    			System.out.println("The number is not a number or not between 1 and 10. Try again.");	
+    			System.out.println("The number is not a number or not between 1 and 10. Try again.");
     		}
     	}
     	
        	System.out.println("What was your performance (1-10)?");
-       	String prestation = null;
        	while (prestation == null) {
     		String input = br.readLine();
-    		if (input.matches("\\d{1,2}") && Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 10) {
-    			prestation = input;
+    		if (input.matches("\\d{1,2}")) {
+    			prestation = Integer.parseInt(input);
+    			if (prestation<1 || prestation>10){
+    			    prestation = null;
+                    System.out.println("The number is not between 1 and 10. Try again.");
+                }
     		} else {
     			System.out.println("The number is not a number or not between 1 and 10. Try again.");	
     		}
@@ -210,38 +221,17 @@ public class SessionController {
     	while (notValidAnswer) {
     		String input = br.readLine();
 	    	if (input.equals("y")) {
-					
-	    		Integer ps = Integer.parseInt(personalShape);
-	    		Integer prest = Integer.parseInt(prestation);
-	    		
-	    		Integer v = null;
-                Integer t = null;
-                /*if (inOrOut == "in"){
-                    v = Integer.parseInt(viewers);
-                }*/
-				if (inOrOut == "out"){
-					t = Integer.parseInt(temp);
-				}
 
 	    		if ((start != null) & (end != null)) {
 	    			// If in
 	    			
 	    			if (inOrOut.equals("in")) {
-	    				Indoor indoor = new Indoor(start, end, ps, prest, note, airCond, viewers);
+	    				Indoor indoor = new Indoor(start, end, personalShape, prestation, note, airCond, viewers);
 	    				manager.getDatabaseController().insertIndoorSession(indoor, exercises);
-	    				/*String sessionInsertQuery = indoor.getInsertQuery();
-	    				String indoorInsertQuery = indoor.getIndoorInserQuery();
-						System.out.println(indoor.getStartDate());
-	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
-	    				manager.getDatabaseController().insertAction(indoorInsertQuery);*/
 	    				
 	    			} else if (inOrOut.equals("out")) {
-	    				Outdoor outdoor = new Outdoor(start, end, ps, prest, note, t, weather);
+	    				Outdoor outdoor = new Outdoor(start, end, personalShape, prestation, note, temp, weather);
 	    				manager.getDatabaseController().insertOutdoorSession(outdoor, exercises);
-	    				/*String sessionInsertQuery = outdoor.getInsertQuery();
-	    				String outdoorInsertQuery = outdoor.getOutdoorInserQuery();
-	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
-	    				manager.getDatabaseController().insertAction(outdoorInsertQuery);*/
 	    			}
 	    				        		
 	    		} else {
