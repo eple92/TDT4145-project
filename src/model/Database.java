@@ -6,12 +6,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class Database {
@@ -19,10 +14,9 @@ public class Database {
 	// Local variables
 	private Connection conn;
 	private PreparedStatement pstmt;
-	private ResultSet rs;
 	
 	// JDBC driver name and database URL
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private String HOST_URL = "jdbc:mysql://localhost/";
 
 	// Database credentials
@@ -40,14 +34,11 @@ public class Database {
 			} catch (ClassNotFoundException e) {
 				System.out.println("ERROR: can't find MySQL JDBC Driver");
 				e.printStackTrace();
-				return;
-			} catch (InstantiationException ie){
+			} catch (InstantiationException | IllegalAccessException ie){
 			    ie.printStackTrace();
-            } catch (IllegalAccessException iae){
-			    iae.printStackTrace();
             }
 
-	}
+    }
 
 	public Connection getConnection(){
 	    return conn;
@@ -133,115 +124,6 @@ public class Database {
             }
         }
     }
-
-	// For update, drop, create and delete
-	public void noReturnAction(String query) {
-		try {
-			// Open a connection
-		    conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
-		    
-		    pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-		    
-		    pstmt.executeUpdate(query);
-			
-		    if (rs != null) {
-		    	rs.close();
-		    }			
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   } finally{
-	      //finally block used to close resources
-	      try {
-	         if(pstmt!=null)
-	            conn.close();
-	      }catch(SQLException se){
-	      }// do nothing
-	      try {
-	         if(conn!=null)
-	            conn.close();
-	      } catch(SQLException se){
-	         se.printStackTrace();
-	      }
-	   }
-	}
-	
-	// For select
-	public ArrayList<String> select(String query, String type) {
-		System.out.println("Query in select: " + query);
-		ArrayList<String> result = new ArrayList<>();
-		
-		try {
-			// Open a connection
-		    conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
-		    
-		    // Create a statement
-	    	pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-	    
-			rs = pstmt.executeQuery(query);
-			result = rsToList(rs, type);
-			
-		    if (rs != null) {
-		    	rs.close();
-		    }			
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   } finally{
-	      //finally block used to close resources
-	      try {
-	         if(pstmt!=null)
-	            conn.close();
-	      }catch(SQLException se){
-	      }// do nothing
-	      try {
-	         if(conn!=null)
-	            conn.close();
-	      } catch(SQLException se){
-	         se.printStackTrace();
-	      }
-	   }
-		return result;
-	}
-	
-	private ArrayList<String> rsToList(ResultSet rs, String type) throws SQLException {
-		ArrayList<String> result = new ArrayList<>();
-	
-		if (rs == null) {
-			System.out.println("ERROR: RS is null");
-			return null;
-		}
-		rs.last();
-		rs.beforeFirst();
-		while (rs.next()) {
-			if (type == "session") {
-				String session = rs.getDate("startDateAndTime") + " to " + rs.getDate("endDateAndTime") + 
-						". Personalshape: " + rs.getInt("personalShape") + ". Prestation: " + rs.getInt("prestation") +
-						". Note: " + rs.getString("note");
-				result.add(session);
-			} else if (type == "exercise") {
-				// TODO: missing
-				String exercise = rs.getString("exerciseName") + " Description: " + rs.getString("description");
-				result.add(exercise);
-			} else if (type == "inResults") {
-				String inResult = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName") + " - " + rs.getInt("weight") + "kg";
-				result.add(inResult);
-			} else if (type == "outResults") {
-				String outResult = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName") + " - " + rs.getInt("distance") + "km";
-				result.add(outResult);
-			}else if (type == "results") {
-				String results = rs.getDate("sessionStartDateAndTime") + ": " + rs.getString("exerciseName");
-				result.add(results);
-			}
-		}
-		return result;
-	}
 
 	private void createTables(){
 		try{

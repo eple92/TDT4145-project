@@ -7,12 +7,12 @@ public class SetupController {
     private ControllerManager manager;
     private BufferedReader br;
 
-    public SetupController(ControllerManager manager){
+    SetupController(ControllerManager manager){
         this.manager = manager;
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public void firstTimeSetUp() {
+    void firstTimeSetUp() {
         Properties props = new Properties();
         props.setProperty("hosturl", "jdbc:mysql://localhost/");
         props.setProperty("dbname", "workoutdiary");

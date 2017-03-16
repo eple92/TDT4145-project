@@ -15,7 +15,7 @@ public class InputController {
 	private ControllerManager manager;
 	private BufferedReader br;
 	
-	public InputController(ControllerManager manager) {
+	InputController(ControllerManager manager) {
 		this.manager = manager;
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 	}

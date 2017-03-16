@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ResultsController {
+class ResultsController {
 
     private ControllerManager manager;
     private BufferedReader br;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
 
-    public ResultsController(ControllerManager manager){
+    ResultsController(ControllerManager manager){
         this.br = new BufferedReader(new InputStreamReader(System.in));
         this.manager = manager;
     }
@@ -37,10 +37,7 @@ public class ResultsController {
 
     private boolean isSessionTime(Date sessionStartDateAndTime){
         ArrayList<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
-        if (sessions == null || sessions.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(sessions == null || sessions.isEmpty());
     }
 
     private boolean isValidDate(String date) {
@@ -64,23 +61,28 @@ public class ResultsController {
             boolean validYN = false;
             while (!validYN) {
                 String input = br.readLine();
-                if (input.equals("q")) {return "q";}
-                if (input.equals("y")) {
-                    while (result == null){
-                        System.out.println(qResult);
-                        input = br.readLine();
-                        if (input.matches(check)) {
-                            result = input;
-                        } else {
-                            System.out.println("Not valid input. Try again.");
+                switch (input) {
+                    case "q":
+                        return "q";
+                    case "y":
+                        while (result == null) {
+                            System.out.println(qResult);
+                            input = br.readLine();
+                            if (input.matches(check)) {
+                                result = input;
+                            } else {
+                                System.out.println("Not valid input. Try again.");
+                            }
                         }
-                    }
-                    validYN = true;
-                } else if (input.equals("n")){
-                    result = "0";
-                    validYN = true;
-                } else {
-                    System.out.println("That was not a valid answer. Please enter y or n");
+                        validYN = true;
+                        break;
+                    case "n":
+                        result = "0";
+                        validYN = true;
+                        break;
+                    default:
+                        System.out.println("That was not a valid answer. Please enter y or n");
+                        break;
                 }
             }
 
@@ -90,7 +92,7 @@ public class ResultsController {
         return result;
     }
 
-    public void addResults() throws IOException {
+    void addResults() throws IOException {
         System.out.println("Here you can add results from your exercise. Enter q to return to main menu.");
 
         String sessionStartDateAndTime = null;

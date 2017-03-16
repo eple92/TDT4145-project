@@ -22,27 +22,19 @@ public class ControllerManager {
     	this.setupController = new SetupController(this);
     }
 
-    public DatabaseController getDatabaseController() {
-		return databaseController;
-	}
+    DatabaseController getDatabaseController() {return databaseController;}
 
-	public SessionController getSessionController() {
-		return sessionController;
-	}
+	SessionController getSessionController() {return sessionController;}
 
-	public ResultsController getResultsController() {
-	    return resultsController;
-    }
+	ResultsController getResultsController() {return resultsController;}
 
-    public QualityController getQualityController(){
-	    return qualityController;
-    }
+    QualityController getQualityController(){return qualityController;}
+
+	SetupController getSetupController() {return setupController;}
 
     public InputController getInputController(){
         return inputController;
     }
 
-    public SetupController getSetupController() {
-        return setupController;
-    }
+
 }

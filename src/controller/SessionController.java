@@ -18,9 +18,9 @@ import model.Session;
 public class SessionController {
 
 	
-	SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
-	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
-	SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+	private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
+	private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	private BufferedReader br;
 
 	private ControllerManager manager;
@@ -46,22 +46,16 @@ public class SessionController {
 
     private boolean isValidExercise(String exercise){
         ArrayList<Exercise> getExercise = manager.getDatabaseController().selectExercise(exercise);
-        if (getExercise == null || getExercise.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(getExercise == null || getExercise.isEmpty());
     }
 
     private boolean isSessionTime(Date sessionStartDateAndTime){
         ArrayList<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
-        if (sessions == null || sessions.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(sessions == null || sessions.isEmpty());
     }
 	
 	
-	public void addSession() throws IOException {
+	void addSession() throws IOException {
         Date start = null;
         Date end = null;
         String date = null;
@@ -105,6 +99,7 @@ public class SessionController {
                     try {
                         valid = timeFormatter.parse(from).before(timeFormatter.parse(to));
                     } catch (ParseException e) {
+                        e.printStackTrace();
                     }
 
                     if (valid) {
@@ -232,30 +227,37 @@ public class SessionController {
     
     	while (notValidAnswer) {
     		String input = br.readLine();
-            if (input.equals("q")) {return;}
-	    	if (input.equals("y")) {
+            switch (input) {
+                case "q":
+                    return;
+                case "y":
 
-	    		if ((start != null) & (end != null)) {
-	    			if (inOrOut.equals("in")) {
-	    				Indoor indoor = new Indoor(start, end, personalShape, prestation, note, airCond, viewers);
-	    				manager.getDatabaseController().insertIndoorSession(indoor, exercises);
-	    				
-	    			} else if (inOrOut.equals("out")) {
-	    				Outdoor outdoor = new Outdoor(start, end, personalShape, prestation, note, temp, weather);
-	    				manager.getDatabaseController().insertOutdoorSession(outdoor, exercises);
-	    			}
-	    				        		
-	    		} else {
-	    			System.out.println("Something is wrong. Start and end couldn't be parsed");
-	    		}
-	    		notValidAnswer = false;
-	    	} else if (input.equals("n")) {
-	    		System.out.println("Sorry, my bad. Let's start over.");
-	    		notValidAnswer = false;
-	    		addSession();
-	    	} else {
-	    		System.out.println("Sorry, that is not a valid answer. Try again.");
-	    	}
+                    if ((start != null) & (end != null)) {
+                        if (inOrOut.equals("in")) {
+                            //noinspection ConstantConditions
+                            Indoor indoor = new Indoor(start, end, personalShape, prestation, note, airCond, viewers);
+                            manager.getDatabaseController().insertIndoorSession(indoor, exercises);
+
+                        } else if (inOrOut.equals("out")) {
+                            //noinspection ConstantConditions
+                            Outdoor outdoor = new Outdoor(start, end, personalShape, prestation, note, temp, weather);
+                            manager.getDatabaseController().insertOutdoorSession(outdoor, exercises);
+                        }
+
+                    } else {
+                        System.out.println("Something is wrong. Start and end couldn't be parsed");
+                    }
+                    notValidAnswer = false;
+                    break;
+                case "n":
+                    System.out.println("Sorry, my bad. Let's start over.");
+                    notValidAnswer = false;
+                    addSession();
+                    break;
+                default:
+                    System.out.println("Sorry, that is not a valid answer. Try again.");
+                    break;
+            }
 		}
     }
 }

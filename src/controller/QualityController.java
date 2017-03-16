@@ -7,18 +7,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-public class QualityController {
+class QualityController {
 
     private BufferedReader br;
     
 	private ControllerManager manager;
 
-	public QualityController(ControllerManager manager) {
+	QualityController(ControllerManager manager) {
 		this.manager = manager;
 		br = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
-    public void getSession() throws IOException {
+    void getSession() throws IOException {
         System.out.println("Choose an option: \n" +
         		"1. Show heaviest lift\n" +
                 "2. Show highest number of repetitions\n" +

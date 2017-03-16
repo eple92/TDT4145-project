@@ -1,11 +1,6 @@
 package main;
 
 import controller.ControllerManager;
-import controller.InputController;
-import controller.SessionController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 
 public class MainApp {
     
