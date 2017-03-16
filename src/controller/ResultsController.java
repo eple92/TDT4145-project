@@ -33,7 +33,7 @@ public class ResultsController {
     }
 
     boolean isExersiceTime (Date sessionStartDateAndTime){
-        if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, 0, 0,"").getSelectQuery(), "session").isEmpty()){
+        if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, "in", 0, 0,"").getSelectQuery(), "session").isEmpty()){
             return false;
         } else {
             return true;
