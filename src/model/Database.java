@@ -24,7 +24,6 @@ public class Database {
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private String HOST_URL = "jdbc:mysql://localhost/";
-	private String DB_URL = "jdbc:mysql://localhost/";
 
 	// Database credentials
 	private String USER = "user";
@@ -74,7 +73,7 @@ public class Database {
 
     public  void connectToDB(){
         try{
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
         } catch (SQLException se){
             se.printStackTrace();
         }
@@ -139,7 +138,7 @@ public class Database {
 	public void noReturnAction(String query) {
 		try {
 			// Open a connection
-		    conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		    conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
 		    
 		    pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		    
@@ -177,7 +176,7 @@ public class Database {
 		
 		try {
 			// Open a connection
-		    conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		    conn = DriverManager.getConnection(HOST_URL + dbName, USER, PASS);
 		    
 		    // Create a statement
 	    	pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -463,10 +462,10 @@ public class Database {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
 
         try{
-            noReturnAction(new Session(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), 8, 9, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"), 8, 9, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"), 4, 5, "Note").getInsertQuery());
-            noReturnAction(new Session(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"), 4, 5, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), "in", 8, 9, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"), "in", 8, 9, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"), "in", 4, 5, "Note").getInsertQuery());
+            noReturnAction(new Session(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"), "in", 4, 5, "Note").getInsertQuery());
 
             noReturnAction(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0).getInsertQuery());
             noReturnAction(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0).getInsertQuery());
