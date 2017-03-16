@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ResultsController {
 
@@ -31,6 +32,17 @@ public class ResultsController {
             return false;
         }
         return true;
+    }
+
+    private boolean exercisePerformedInSession(String exercise, Date startDateAndTime) {
+        System.out.println(exercise);
+        List<String> exercisesPerformed = manager.getDatabaseController().selectAllExerciseNamesFromSession(startDateAndTime);
+        for (String s:exercisesPerformed) {
+            if(s.equalsIgnoreCase(exercise)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isExerciseTime(Date sessionStartDateAndTime){
@@ -56,21 +68,13 @@ public class ResultsController {
     }
 
     public void addResults() throws IOException {
-        System.out.println("here you can add results from your exercise. \n which exersice did you perform?");
-        String exersiceName = null;
-        while (exersiceName == null){
-            String input = br.readLine();
-            if (isValidExercise(input)){
-                exersiceName = input;
-            } else {
-                System.out.println("Thats not a recognized exercise, please try again");
-            }
-        }
+        System.out.println("here you can add results from your exercise.");
 
         boolean notValidSessionTime = true;
         String sessionStartDateAndTime = null;
+        Date start = null;
 
-        while(notValidSessionTime) {
+        while(start == null) {
             System.out.println("When was the session (dd.mm.yy)?");
             String date = null;
             while(date == null) {
@@ -94,14 +98,25 @@ public class ResultsController {
             }
             }
             sessionStartDateAndTime = date + " " + time + ":00";
-            Date start = null;
+            start = null;
             try {
                 start = formatter.parse(sessionStartDateAndTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (isExerciseTime(start)){
-                notValidSessionTime = false;
+            if (!isExerciseTime(start)){
+                start = null;
+            }
+        }
+
+        System.out.println("which exercise did you perform?");
+        String exerciseName = null;
+        while (exerciseName == null){
+            String input = br.readLine();
+            if (exercisePerformedInSession(input, start)){
+                exerciseName = input;
+            } else {
+                System.out.println("That's not a recognized exercise, or was not performed during that session");
             }
         }
 
@@ -121,108 +136,97 @@ public class ResultsController {
             } else {
                 System.out.println("Please choose in or out:");
             }
-            if(inOrOut.equals("in")){
+        }
+        if(inOrOut.equals("in")){
 
-                System.out.println("What weight did you use?");
-                while(weight == null){
-                    String inputWeight = br.readLine();
-                    if(inputWeight.matches("[0-9]{1,2}") & Integer.parseInt(input) > 0 & Integer.parseInt(input) < 500 ){
-                        weight = inputWeight;
-                    } else {
-                        System.out.println("That's not a valid weight, please insert a valid one.");
-                    }
-                }
-
-                System.out.println("How many repetitions did you manage?");
-                while(rep == null){
-                    String inputRep = br.readLine();
-                    if(inputRep.matches("[0-9]{1,2}") & Integer.parseInt(input) > 0 & Integer.parseInt(input) < 250 ){
-                        rep = inputRep;
-                    } else {
-                        System.out.println("That's not a valid amount of repetitions, please insert a valid one.");
-                    }
-                }
-
-                System.out.println("How many sets did you manage?");
-                while(exerciseSet == null){
-                    String inputSets = br.readLine();
-                    if(inputSets.matches("[0-9]{1,2}") & Integer.parseInt(input) > 0 & Integer.parseInt(input) < 500 ){
-                        exerciseSet = inputSets;
-                    } else {
-                        System.out.println("That's not amount of sets, please insert a valid one");
-                    }
-                }
-
-
-                System.out.println("You exercised " + exersiceName +
-                        " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
-                        " kg, " + rep + " repetitions for" + exerciseSet + " sets. Is that correct? (y/n)");
-
-
-
-
-            } else {
-
-                System.out.println("What distance did you cover in km?");
-                while(distance == null){
-                    String inputDistance = br.readLine();
-                    if(inputDistance.matches("[0-9]{1,2}") & Integer.parseInt(inputDistance) > 0 & Integer.parseInt(inputDistance) < 500 ){
-                        distance = inputDistance;
-                    } else {
-                        System.out.println("That's not a valid length, please insert a valid one.");
-                    }
-                }
-
-                System.out.println("how long did you run in minutes?");
-                while(duration == null){
-                    String inputDuration = br.readLine();
-                    if(inputDuration.matches("[0-9]{1,2}") & Integer.parseInt(inputDuration) > 0 & Integer.parseInt(inputDuration) < 500 ){
-                        duration = inputDuration;
-                    } else {
-                        System.out.println("That's not a valid duration, please insert a valid one.");
-                    }
-                }
-
-
-                System.out.println("You exercised " + exersiceName +
-                        " in your session at " + sessionStartDateAndTime + ", you ran " + distance +
-                        " km, for " + duration + " min. Is that correct? (y/n)");
-            }
-
-            String answer = br.readLine();
-            if(answer.equals("y")){
-                Date start = null;
-                try {
-                    start = formatter.parse(sessionStartDateAndTime);
-                } catch (ParseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                Integer w = 0;
-                Integer r = 0;
-                Integer s = 0;
-                Integer di = 0;
-                Integer du = 0;
-
-                if (inOrOut.equals("in")) {
-                    w = Integer.parseInt(weight);
-                    r = Integer.parseInt(rep);
-                    s = Integer.parseInt(exerciseSet);
+            System.out.println("What weight did you use?");
+            while(weight == null){
+                String inputWeight = br.readLine();
+                if(inputWeight.matches("[0-9]{1,2}") & Integer.parseInt(inputWeight) > 0 & Integer.parseInt(inputWeight) < 500 ){
+                    weight = inputWeight;
                 } else {
-                    di = Integer.parseInt(distance);
-                    du = Integer.parseInt(duration);
+                    System.out.println("That's not a valid weight, please insert a valid one.");
                 }
-
-                Results results = new Results(exersiceName, start, w, r, s, di, du);
-                /*String resultsInsertQuery = results.getInsertQuery();
-                manager.getDatabaseController().insertAction(resultsInsertQuery);*/
-                manager.getDatabaseController().insertResults(results);
-            } else if (answer.equals("n")){
-                addResults();
-            } else {
-                System.out.println("not a valid input, (y/n)");
             }
+
+            System.out.println("How many repetitions did you manage?");
+            while(rep == null){
+                String inputRep = br.readLine();
+                if(inputRep.matches("[0-9]{1,2}") & Integer.parseInt(inputRep) > 0 & Integer.parseInt(inputRep) < 250 ){
+                    rep = inputRep;
+                } else {
+                    System.out.println("That's not a valid amount of repetitions, please insert a valid one.");
+                }
+            }
+
+            System.out.println("How many sets did you manage?");
+            while(exerciseSet == null){
+                String inputSets = br.readLine();
+                if(inputSets.matches("[0-9]{1,2}") & Integer.parseInt(inputSets) > 0 & Integer.parseInt(inputSets) < 500 ){
+                    exerciseSet = inputSets;
+                } else {
+                    System.out.println("That's not amount of sets, please insert a valid one");
+                }
+            }
+
+
+            System.out.println("You exercised " + exerciseName +
+                    " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
+                    " kg, " + rep + " repetitions for" + exerciseSet + " sets. Is that correct? (y/n)");
+
+        } else {
+
+            System.out.println("What distance did you cover in km?");
+            while(distance == null){
+                String inputDistance = br.readLine();
+                if(inputDistance.matches("[0-9]{1,2}") & Integer.parseInt(inputDistance) > 0 & Integer.parseInt(inputDistance) < 500 ){
+                    distance = inputDistance;
+                } else {
+                    System.out.println("That's not a valid length, please insert a valid one.");
+                }
+            }
+
+            System.out.println("how long did you run in minutes?");
+            while(duration == null){
+                String inputDuration = br.readLine();
+                if(inputDuration.matches("[0-9]{1,2}") & Integer.parseInt(inputDuration) > 0 & Integer.parseInt(inputDuration) < 500 ){
+                    duration = inputDuration;
+                } else {
+                    System.out.println("That's not a valid duration, please insert a valid one.");
+                }
+            }
+
+
+            System.out.println("You exercised " + exerciseName +
+                    " in your session at " + sessionStartDateAndTime + ", you ran " + distance +
+                    " km, for " + duration + " min. Is that correct? (y/n)");
+        }
+
+        String answer = br.readLine();
+        if(answer.equals("y")){
+            Integer w = 0;
+            Integer r = 0;
+            Integer s = 0;
+            Integer di = 0;
+            Integer du = 0;
+
+            if (inOrOut.equals("in")) {
+                w = Integer.parseInt(weight);
+                r = Integer.parseInt(rep);
+                s = Integer.parseInt(exerciseSet);
+            } else {
+                di = Integer.parseInt(distance);
+                du = Integer.parseInt(duration);
+            }
+
+            Results results = new Results(exerciseName, start, w, r, s, di, du);
+            /*String resultsInsertQuery = results.getInsertQuery();
+            manager.getDatabaseController().insertAction(resultsInsertQuery);*/
+            manager.getDatabaseController().insertResults(results);
+        } else if (answer.equals("n")){
+            addResults();
+        } else {
+            System.out.println("not a valid input, (y/n)");
         }
     }
 }
