@@ -18,7 +18,6 @@ public class ResultsController {
     private BufferedReader br;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yy");
-    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 
     public ResultsController(ControllerManager manager){
         this.br = new BufferedReader(new InputStreamReader(System.in));
@@ -142,88 +141,11 @@ public class ResultsController {
             }
         }
 
-        //System.out.println("Did you perform this exercise outside, or inside?");
-        //String inOrOut = null;
         String weight = addResultIfApplicable("Is weight relevant to your result? (y/n)", "What weight did you use?", "[0-9]{1,2}");
         String rep = addResultIfApplicable("Are repetitions relevant to your result? (y/n)", "How many repetitions did you manage?", "[0-9]{1,2}");
         String exerciseSet = addResultIfApplicable("Are sets relevant to your result? (y/n)", "How many sets did you manage?", "[0-9]{1,2}");
         String distance = addResultIfApplicable("Is distance relevant to your result? (y/n)", "What distance did you cover in km?", "[0-9]{1,2}");
         String duration = addResultIfApplicable("Is time relevant to your result? (y/n)", "How long did you run in minutes?", "[0-9]{1,4}");
-        /*while (inOrOut==null){
-            String input = br.readLine();
-            if(input.equals("in")){
-                inOrOut = "in";
-            } else if (input.equals("out")) {
-                inOrOut = "out";
-            } else {
-                System.out.println("Please choose in or out:");
-            }
-        }*/
-
-        /*if(inOrOut.equals("in")){
-
-            System.out.println("What weight did you use?");
-            while(weight == null){
-                String inputWeight = br.readLine();
-                if(inputWeight.matches("[0-9]{1,2}") & Integer.parseInt(inputWeight) > 0 & Integer.parseInt(inputWeight) < 500 ){
-                    weight = inputWeight;
-                } else {
-                    System.out.println("That's not a valid weight, please insert a valid one.");
-                }
-            }
-
-            System.out.println("How many repetitions did you manage?");
-            while(rep == null){
-                String inputRep = br.readLine();
-                if(inputRep.matches("[0-9]{1,2}") & Integer.parseInt(inputRep) > 0 & Integer.parseInt(inputRep) < 250 ){
-                    rep = inputRep;
-                } else {
-                    System.out.println("That's not a valid amount of repetitions, please insert a valid one.");
-                }
-            }
-
-            System.out.println("How many sets did you manage?");
-            while(exerciseSet == null){
-                String inputSets = br.readLine();
-                if(inputSets.matches("[0-9]{1,2}") & Integer.parseInt(inputSets) > 0 & Integer.parseInt(inputSets) < 500 ){
-                    exerciseSet = inputSets;
-                } else {
-                    System.out.println("That's not amount of sets, please insert a valid one");
-                }
-            }
-
-
-            System.out.println("You exercised " + exerciseName +
-                    " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
-                    " kg, " + rep + " repetitions for" + exerciseSet + " sets. Is that correct? (y/n)");
-
-        } else {
-
-            System.out.println("What distance did you cover in km?");
-            while(distance == null){
-                String inputDistance = br.readLine();
-                if(inputDistance.matches("[0-9]{1,2}") & Integer.parseInt(inputDistance) > 0 & Integer.parseInt(inputDistance) < 500 ){
-                    distance = inputDistance;
-                } else {
-                    System.out.println("That's not a valid length, please insert a valid one.");
-                }
-            }
-
-            System.out.println("how long did you run in minutes?");
-            while(duration == null){
-                String inputDuration = br.readLine();
-                if(inputDuration.matches("[0-9]{1,2}") & Integer.parseInt(inputDuration) > 0 & Integer.parseInt(inputDuration) < 500 ){
-                    duration = inputDuration;
-                } else {
-                    System.out.println("That's not a valid duration, please insert a valid one.");
-                }
-            }
-
-
-            System.out.println("You exercised " + exerciseName +
-                    " in your session at " + sessionStartDateAndTime + ", you ran " + distance +
-                    " km, for " + duration + " min. Is that correct? (y/n)");
-        }*/
 
         System.out.println("You exercised " + exerciseName +
                 " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
