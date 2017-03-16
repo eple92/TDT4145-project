@@ -136,7 +136,6 @@ public class SessionController {
     		String input = br.readLine();
 	    	if (input.equals("y")) {
 	    		String startHour = duration.substring(0, 5);
-                System.out.println(startHour);
 	    		String endHour = duration.substring(6, 11);
 	    		
 	    		Date start = null;
@@ -171,18 +170,20 @@ public class SessionController {
 	    			
 	    			if (inOrOut.equals("in")) {
 	    				Indoor indoor = new Indoor(start, end, ps, prest, note, airCond, v);
-	    				String sessionInsertQuery = indoor.getInsertQuery();
+	    				manager.getDatabaseController().insertIndoorSession(indoor);
+	    				/*String sessionInsertQuery = indoor.getInsertQuery();
 	    				String indoorInsertQuery = indoor.getIndoorInserQuery();
 						System.out.println(indoor.getStartDate());
 	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
-	    				manager.getDatabaseController().insertAction(indoorInsertQuery);
+	    				manager.getDatabaseController().insertAction(indoorInsertQuery);*/
 	    				
 	    			} else if (inOrOut.equals("out")) {
 	    				Outdoor outdoor = new Outdoor(start, end, ps, prest, note, t, weather);
-	    				String sessionInsertQuery = outdoor.getInsertQuery();
+	    				manager.getDatabaseController().insertOutdoorSession(outdoor);
+	    				/*String sessionInsertQuery = outdoor.getInsertQuery();
 	    				String outdoorInsertQuery = outdoor.getOutdoorInserQuery();
 	    				manager.getDatabaseController().insertAction(sessionInsertQuery);
-	    				manager.getDatabaseController().insertAction(outdoorInsertQuery);
+	    				manager.getDatabaseController().insertAction(outdoorInsertQuery);*/
 	    			}
 	    				        		
 	    		} else {
