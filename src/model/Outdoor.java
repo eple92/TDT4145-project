@@ -10,7 +10,7 @@ public class Outdoor extends Session {
 	public static final String selectAllQuery = "SELECT * FROM Outdoor;";
 	
 	public Outdoor(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note, int temperature, String weather) {
-		super(startDate, endDate, personalShape, prestation, note);
+		super(startDate, endDate, "out", personalShape, prestation, note);
 		this.temperature = temperature;
 		this.weather = weather;
 	}

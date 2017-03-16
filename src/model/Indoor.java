@@ -10,7 +10,7 @@ public class Indoor extends Session {
 	public static final String selectAllQuery = "SELECT * FROM indoorsession;";
 	
 	public Indoor(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note, String aircondition, int viewers) {
-		super(startDate, endDate, personalShape, prestation, note);
+		super(startDate, endDate, "in", personalShape, prestation, note);
 		this.aircondition = aircondition;
 		this.viewers = viewers;
 	}
@@ -20,5 +20,13 @@ public class Indoor extends Session {
 				super.getStartDateString() + "', '" + aircondition + "', " + viewers + ");";
 		
 		return q;
+	}
+
+	public String getAircondition() {
+		return aircondition;
+	}
+
+	public int getViewers() {
+		return viewers;
 	}
 }

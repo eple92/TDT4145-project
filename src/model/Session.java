@@ -23,9 +23,10 @@ public class Session {
 
 	public static final String selectAllQuery = "SELECT * FROM Session;";
 
-	public Session(Date startDate, Date endDate, Integer personalShape, Integer prestation, String note) {
-		this.startDate = new SimpleObjectProperty<Date>(startDate);
-		this.endDate = new SimpleObjectProperty<Date>(endDate);
+	public Session(Date startDate, Date endDate, String inOrOut, Integer personalShape, Integer prestation, String note) {
+		this.startDate = new SimpleObjectProperty<>(startDate);
+		this.endDate = new SimpleObjectProperty<>(endDate);
+		this.inOrOut = inOrOut;
 		this.personalShape = new SimpleIntegerProperty(personalShape);
 		this.prestation = new SimpleIntegerProperty(prestation);
 		this.note = new SimpleStringProperty(note); 
@@ -86,5 +87,9 @@ public class Session {
 	public String getNote() {
 		return note.get();
 	}
+
+	public String getInOrOut() {
+	    return inOrOut;
+    }
 
 }
