@@ -30,14 +30,6 @@ public class Goals {
         this.duration = new SimpleIntegerProperty(duration);
     }
 
-    public String getInsertQuery() {
-        String q = "Insert into Goals (startDate, endDate, exerciseName, weight, rep, exerciseSet, distance, duration) " +
-                "Values("+ getGoalStartDateString() + "', '" + getGoalEndDateString() + "', '" + getExerciseNameString()+ "', " + getWeight() + ", " +
-                getRep() + ", " + getExerciseSet() + ", " + getDistance() + ", " + getDuration() + ");";
-        return q;
-
-    }
-
     public String getExerciseNameString(){return exerciseName.get();}
 
     public String getGoalStartDateString(){
