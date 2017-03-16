@@ -458,20 +458,37 @@ public class Database {
 
 	}
 
-	public void populateDatabase() {
-
-	}
-
 	private void addExercisesToDb(){
 
-        noReturnAction(new Exercise("Running", "Run").getInstertQuery());
-        noReturnAction(new Exercise("Rowing", "Move oars in half circles, to propel boat forward.").getInstertQuery());
-        noReturnAction(new Exercise("Jogging", "Jog").getInstertQuery());
-        noReturnAction(new Exercise("Jump Rope", "Swing rope around yourself and jump over it when it reaches feet.").getInstertQuery());
+	    try {
+	        pstmt = conn.prepareStatement("INSERT INTO Exercise(exerciseName, description) VALUES(?,?);");
+	        pstmt.setString(1,"Running");
+	        pstmt.setString(2, "Run");
+	        pstmt.executeUpdate();
+            pstmt.setString(1,"Rowing");
+            pstmt.setString(2, "Move oars in half circles, to propel boat forward.");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Jogging");
+            pstmt.setString(2, "Jog");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Jump Rope");
+            pstmt.setString(2, "Swing rope around yourself and jump over it when it reaches feet.");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Squat");
+            pstmt.setString(2, "Squatting");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Benchpress");
+            pstmt.setString(2, "Press");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Arm Circles");
+            pstmt.setString(2, "Description");
+            pstmt.executeUpdate();
+            pstmt.setString(1,"Ab roller");
+            pstmt.setString(2, "Belly");
+            pstmt.executeUpdate();
 
-        noReturnAction(new Exercise("Squat", "Squatting").getInstertQuery());
-        noReturnAction(new Exercise("Benchpress", "Press").getInstertQuery());
-        noReturnAction(new Exercise("Arm Circles", "Description").getInstertQuery());
-        noReturnAction(new Exercise("Ab roller", "Belly").getInstertQuery());
+        } catch (SQLException se) {
+	        se.printStackTrace();
+        }
 	}
 }
