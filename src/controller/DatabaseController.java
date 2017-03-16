@@ -332,4 +332,26 @@ public class DatabaseController {
         db.closeConnection();
         return result;
     }
+
+    List<Results> selectResultsByQuery(String query) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        ResultSet rs;
+        List<Results> result = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("ERROR: RS is null");
+                return null;
+            } else {
+                while(rs.next()) {
+                    result.add(new Results(rs.getString("exerciseName"),rs.getTimestamp("sessionStartDateAndTime"),rs.getInt("weight"), rs.getInt("rep"), rs.getInt("exerciseSet"), rs.getInt("distance"), rs.getInt("duration")));
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return result;
+    }
 }
