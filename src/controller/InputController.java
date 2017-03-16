@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.Indoor;
 import model.Outdoor;
@@ -55,7 +55,7 @@ public class InputController {
                     manager.getQualityController().getSession();
                     break;
                 case "3":
-                    ArrayList<Session> allSessions = manager.getDatabaseController().selectAllSessions();
+                    List<Session> allSessions = manager.getDatabaseController().selectAllSessions();
                     for (Session s : allSessions) {
                         System.out.print(s.getStartDateString() + " to " + s.getEndDateString() +
                                 ". Personal shape: " + s.getPersonalShape() + ". Performance: " + s.getPrestation() +

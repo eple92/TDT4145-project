@@ -50,7 +50,7 @@ public class SessionController {
     }
 
     private boolean isSessionTime(Date sessionStartDateAndTime){
-        ArrayList<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
+        List<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
         return !(sessions == null || sessions.isEmpty());
     }
 	

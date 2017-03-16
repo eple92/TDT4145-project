@@ -32,7 +32,7 @@ public class Goals {
 
     public String getInsertQuery() {
         String q = "Insert into Goals (startDate, endDate, exerciseName, weight, rep, exerciseSet, distance, duration) " +
-                "Values("+ getGoalStartDate() + "', '" + getGoalEndDate() + "', '" + getExerciseNameString()+ "', " + getWeight() + ", " +
+                "Values("+ getGoalStartDateString() + "', '" + getGoalEndDateString() + "', '" + getExerciseNameString()+ "', " + getWeight() + ", " +
                 getRep() + ", " + getExerciseSet() + ", " + getDistance() + ", " + getDuration() + ");";
         return q;
 
@@ -40,7 +40,7 @@ public class Goals {
 
     public String getExerciseNameString(){return exerciseName.get();}
 
-    public String getGoalStartDate(){
+    public String getGoalStartDateString(){
         if(goalStartDate == null) {
             return null;
         }else{
@@ -48,11 +48,27 @@ public class Goals {
         }
     }
 
-    public String getGoalEndDate(){
+    public String getGoalEndDateString(){
         if(goalEndDate == null) {
             return null;
         }else{
             return dateFormatter.format(goalStartDate.get());
+        }
+    }
+
+    public Date getGoalStartDate() {
+        if (goalStartDate == null) {
+            return null;
+        } else {
+            return goalStartDate.get();
+        }
+    }
+
+    public Date getGoalEndDate() {
+        if (goalEndDate == null) {
+            return null;
+        } else {
+            return goalEndDate.get();
         }
     }
 

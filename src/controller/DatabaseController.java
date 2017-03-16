@@ -12,74 +12,72 @@ import model.*;
 
 class DatabaseController {
 
-		private Database db;
-		private ControllerManager manager;
-		private PreparedStatement pstmt;
+    private Database db;
+	private ControllerManager manager;
+	private PreparedStatement pstmt;
 		
-		DatabaseController(ControllerManager manager) {
+	DatabaseController(ControllerManager manager) {
 			this.manager = manager;
 		}
 
-		void makeNewConnection(){
+	void makeNewConnection(){
             db = new Database();
-        }
+    }
 
-        void createDatabase(){
+    void createDatabase(){
 		    db.recreateDB();
+    }
+    void populateDatabase() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        List<String> exercises = Arrays.asList("Arm Circles", "Squat", "Ab roller", "Benchpress", "Running", "Jogging");
+
+        try{
+            insertIndoorSession(new Indoor(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), 8, 9, "Note", "", 0),exercises);
+            insertIndoorSession(new Indoor(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"),8, 9, "Note", "", 0),exercises);
+            insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0), exercises);
+            insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0), exercises);
+
+            insertResults(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0));
+            insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0));
+            insertResults(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0));
+            insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0));
+            insertResults(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0));
+
+            insertResults(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55));
+            insertResults(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60));
+            insertResults(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50));
+            insertResults(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+    }
 
-        void populateDatabase() {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
-            List<String> exercises = Arrays.asList("Arm Circles", "Squat", "Ab roller", "Benchpress", "Running", "Jogging");
-
+	private void insertSession(Session session, List<String> exercises) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        String q = "INSERT INTO Session(startDateAndTime, endDateAndTime, inOrOut, personalShape, prestation, note) VALUES (?,?,?,?,?,?);";
+		try {
+		    pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(1, new Timestamp(session.getStartDate().getTime()));
+            pstmt.setTimestamp(2, new Timestamp(session.getEndDate().getTime()));
+            pstmt.setString(3, session.getInOrOut());
+            pstmt.setInt(4, session.getPersonalShape());
+            pstmt.setInt(5, session.getPrestation());
+            pstmt.setString(6, session.getNote());
+            pstmt.executeUpdate();
+        } catch (SQLException se) {
+		    se.printStackTrace();
+        } finally {
             try{
-                insertIndoorSession(new Indoor(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), 8, 9, "Note", "", 0),exercises);
-                insertIndoorSession(new Indoor(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"),8, 9, "Note", "", 0),exercises);
-                insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0), exercises);
-                insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0), exercises);
-
-                insertResults(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0));
-                insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0));
-                insertResults(new Results("Ab roller", formatter.parse("12.12.15 12:00:00"), 10, 6, 4, 0, 0));
-                insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 90, 3, 2, 0, 0));
-                insertResults(new Results("Benchpress", formatter.parse("12.12.15 12:00:00"), 30, 20, 4, 0, 0));
-
-                insertResults(new Results("Running", formatter.parse("12.12.15 12:00:00"), 0, 0, 0, 12, 55));
-                insertResults(new Results("Running", formatter.parse("11.12.15 12:00:00"), 0, 0, 0, 20, 60));
-                insertResults(new Results("Jogging", formatter.parse("8.2.15 12:00:00"), 0, 0, 0, 3, 50));
-                insertResults(new Results("Jogging", formatter.parse("4.8.15 12:00:00"), 0, 0, 0, 4, 20));
-            } catch (ParseException e) {
-                e.printStackTrace();
+               if(this.pstmt != null)
+                   this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
             }
         }
-
-		private void insertSession(Session session, List<String> exercises) {
-            db.connectToDB();
-            Connection conn = db.getConnection();
-		    String q = "INSERT INTO Session(startDateAndTime, endDateAndTime, inOrOut, personalShape, prestation, note) VALUES (?,?,?,?,?,?);";
-		    try {
-                pstmt = conn.prepareStatement(q);
-                pstmt.setTimestamp(1, new Timestamp(session.getStartDate().getTime()));
-                pstmt.setTimestamp(2, new Timestamp(session.getEndDate().getTime()));
-                pstmt.setString(3, session.getInOrOut());
-                pstmt.setInt(4, session.getPersonalShape());
-                pstmt.setInt(5, session.getPrestation());
-                pstmt.setString(6, session.getNote());
-                pstmt.executeUpdate();
-            } catch (SQLException se) {
-		        se.printStackTrace();
-            } finally {
-                try{
-                    if(this.pstmt != null)
-                        this.pstmt.close();
-                } catch(SQLException se){
-                    se.printStackTrace();
-                }
-            }
-            db.closeConnection();
-		    insertSessionExercises(session, exercises);
-        }
-
+        db.closeConnection();
+        insertSessionExercises(session, exercises);
+    }
     private void insertSessionExercises(Session session, List<String> exercises) {
         db.connectToDB();
         Connection conn = db.getConnection();
@@ -104,32 +102,31 @@ class DatabaseController {
         db.closeConnection();
     }
 
-        public void insertIndoorSession(Indoor session, List<String> exercises){
-            insertSession(session, exercises);
-            db.connectToDB();
-            Connection conn = db.getConnection();
-            String q = "INSERT INTO indoorsession(indoorStartDateAndTime, aircondition, viewers) VALUES (?,?,?);";
-            try {
-                pstmt = conn.prepareStatement(q);
-                pstmt.setTimestamp(1, new Timestamp(session.getStartDate().getTime()));
-                pstmt.setString(2, session.getAircondition());
-                pstmt.setInt(3,session.getViewers());
-                pstmt.executeUpdate();
-            } catch (SQLException se) {
+    void insertIndoorSession(Indoor session, List<String> exercises){
+        insertSession(session, exercises);
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        String q = "INSERT INTO indoorsession(indoorStartDateAndTime, aircondition, viewers) VALUES (?,?,?);";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(1, new Timestamp(session.getStartDate().getTime()));
+            pstmt.setString(2, session.getAircondition());
+            pstmt.setInt(3,session.getViewers());
+            pstmt.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
                 se.printStackTrace();
-            } finally {
-                try{
-                    if(this.pstmt != null)
-                        this.pstmt.close();
-                } catch(SQLException se){
-                    se.printStackTrace();
-                }
             }
-            db.closeConnection();
-
         }
+        db.closeConnection();
+    }
 
-    public void insertOutdoorSession(Outdoor session, List<String> exercises){
+    void insertOutdoorSession(Outdoor session, List<String> exercises){
         insertSession(session, exercises);
         db.connectToDB();
         Connection conn = db.getConnection();
@@ -153,9 +150,7 @@ class DatabaseController {
         db.closeConnection();
     }
 
-
-
-    public void insertResults(Results results){
+    void insertResults(Results results){
         db.connectToDB();
         Connection conn = db.getConnection();
         String q = "INSERT INTO Results (exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, distance, duration) VALUES (?,?,?,?,?,?,?);";
@@ -182,7 +177,37 @@ class DatabaseController {
         db.closeConnection();
     }
 
-    public ArrayList<Exercise> selectExercise(String exerciseName) {
+    void insertGoal (Goals goal) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        String q = "INSERT INTO Goals (startDate, endDate, exerciseName, weight, rep, exerciseSet, distance, duration) VALUES(?,?,?,?,?,?,?,?);";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(1,new Timestamp(goal.getGoalStartDate().getTime()));
+            pstmt.setTimestamp(2, new Timestamp(goal.getGoalEndDate().getTime()));
+            pstmt.setString(3, goal.getExerciseNameString());
+            pstmt.setInt(4, goal.getWeight());
+            pstmt.setInt(5, goal.getRep());
+            pstmt.setInt(6, goal.getExerciseSet());
+            pstmt.setInt(7, goal.getDistance());
+            pstmt.setInt(8, goal.getDuration());
+            pstmt.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+    }
+
+
+
+    ArrayList<Exercise> selectExercise(String exerciseName) {
         db.connectToDB();
         Connection conn = db.getConnection();
         ResultSet rs;
@@ -214,7 +239,7 @@ class DatabaseController {
         return result;
     }
 
-    public List<String> selectAllExerciseNamesFromSession(Date startDateAndTime){
+    List<String> selectAllExerciseNamesFromSession(Date startDateAndTime){
         db.connectToDB();
         Connection conn = db.getConnection();
         ResultSet rs;
@@ -246,11 +271,11 @@ class DatabaseController {
         return result;
     }
 
-    public ArrayList<Session> selectAllSessions() {
+    List<Session> selectAllSessions() {
         db.connectToDB();
         Connection conn = db.getConnection();
         ResultSet rs;
-        ArrayList<Session> result = new ArrayList<>();
+        List<Session> result = new ArrayList<>();
         String q = "SELECT * FROM session left join indoorsession on startDateAndTime=indoorStartDateAndTime left join outdoorsession on startDateAndTime = outdoorStartDateAndTime;";
         try {
             pstmt = conn.prepareStatement(q);
@@ -281,11 +306,11 @@ class DatabaseController {
         return result;
     }
 
-    public ArrayList<Session> selectSession(Date startDateAndTime) {
+    List<Session> selectSession(Date startDateAndTime) {
         db.connectToDB();
         Connection conn = db.getConnection();
         ResultSet rs;
-        ArrayList<Session> result = new ArrayList<>();
+        List<Session> result = new ArrayList<>();
         String q = "SELECT * FROM session left join indoorsession on startDateAndTime=indoorStartDateAndTime left join outdoorsession on startDateAndTime = outdoorStartDateAndTime WHERE startDateAndTime = ?;";
         try {
             pstmt = conn.prepareStatement(q);
