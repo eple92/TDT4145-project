@@ -44,7 +44,7 @@ public class SetupController {
 
         System.out.println("What do you want to do?\n" +
                 "1. Run first time setup\n" +
-                "2. Populate database" +
+                "2. Populate database\n" +
                 "3. Exit setup"
         );
         String input;
