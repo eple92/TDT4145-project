@@ -64,6 +64,7 @@ public class ResultsController {
             boolean validYN = false;
             while (!validYN) {
                 String input = br.readLine();
+                if (input.equals("q")) {return "q";}
                 if (input.equals("y")) {
                     while (result == null){
                         System.out.println(qResult);
@@ -90,7 +91,7 @@ public class ResultsController {
     }
 
     public void addResults() throws IOException {
-        System.out.println("Here you can add results from your exercise.");
+        System.out.println("Here you can add results from your exercise. Enter q to return to main menu.");
 
         String sessionStartDateAndTime = null;
         Date start = null;
@@ -101,6 +102,7 @@ public class ResultsController {
             String date = null;
             while(date == null) {
                 String input = br.readLine();
+                if (input.equals("q")) {return;}
 
                 if (isValidDate(input)) {
                     date = input;
@@ -113,6 +115,8 @@ public class ResultsController {
             String time = null;
             while (time == null) {
                 String input = br.readLine();
+                if (input.equals("q")) {return;}
+
                 if(input.matches("([01]?[0-9]|2[0-3]):([0-5][0-9])")){
                     time = input;
                 } else {
@@ -134,6 +138,8 @@ public class ResultsController {
         System.out.println("which exercise did you perform?");
         while (exerciseName == null){
             String input = br.readLine();
+            if (input.equals("q")) {return;}
+
             if (exercisePerformedInSession(input, start)){
                 exerciseName = input;
             } else {
@@ -142,16 +148,22 @@ public class ResultsController {
         }
 
         String weight = addResultIfApplicable("Is weight relevant to your result? (y/n)", "What weight did you use?", "[0-9]{1,2}");
+        if (weight.equals("q")) {return;}
         String rep = addResultIfApplicable("Are repetitions relevant to your result? (y/n)", "How many repetitions did you manage?", "[0-9]{1,2}");
+        if (rep.equals("q")) {return;}
         String exerciseSet = addResultIfApplicable("Are sets relevant to your result? (y/n)", "How many sets did you manage?", "[0-9]{1,2}");
+        if (exerciseSet.equals("q")) {return;}
         String distance = addResultIfApplicable("Is distance relevant to your result? (y/n)", "What distance did you cover in km?", "[0-9]{1,2}");
+        if (distance.equals("q")) {return;}
         String duration = addResultIfApplicable("Is time relevant to your result? (y/n)", "How long did you run in minutes?", "[0-9]{1,4}");
+        if (duration.equals("q")) {return;}
 
         System.out.println("You exercised " + exerciseName +
                 " in your session at " + sessionStartDateAndTime + ", you lifted " + weight +
                         " kg, performed " + rep + " repetitions for" + exerciseSet + " sets and ran " + distance +
                 " km, for " + duration + " min. Is that correct? (y/n)");
         String answer = br.readLine();
+        if (answer.equals("q")) {return;}
         if(answer.equals("y")){
             Integer w = Integer.parseInt(weight);
             Integer r = Integer.parseInt(rep);
@@ -160,8 +172,6 @@ public class ResultsController {
             Integer du = Integer.parseInt(duration);
 
             Results results = new Results(exerciseName, start, w, r, s, di, du);
-            /*String resultsInsertQuery = results.getInsertQuery();
-            manager.getDatabaseController().insertAction(resultsInsertQuery);*/
             manager.getDatabaseController().insertResults(results);
         } else if (answer.equals("n")){
             addResults();
