@@ -46,11 +46,16 @@ public class ResultsController {
     }
 
     private boolean isExerciseTime(Date sessionStartDateAndTime){
-        if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, "in", 0, 0,"").getSelectQuery(), "session").isEmpty()){
+        ArrayList<Session> sessions = manager.getDatabaseController().selectSession(sessionStartDateAndTime);
+        if (sessions == null || sessions.isEmpty()) {
+            return false;
+        }
+        return true;
+        /*if (manager.getDatabaseController().selectAction(new Session(sessionStartDateAndTime, sessionStartDateAndTime, "in", 0, 0,"").getSelectQuery(), "session").isEmpty()){
             return false;
         } else {
             return true;
-        }
+        }*/
     }
 
     private boolean isValidDate(String date) {

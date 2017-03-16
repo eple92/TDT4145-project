@@ -296,4 +296,40 @@ public class DatabaseController {
         db.closeConnection();
         return result;
     }
+
+    public ArrayList<Session> selectSession(Date startDateAndTime) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        ResultSet rs;
+        ArrayList<Session> result = new ArrayList<>();
+        String q = "SELECT * FROM session left join indoorsession on startDateAndTime=indoorStartDateAndTime left join outdoorsession on startDateAndTime = outdoorStartDateAndTime WHERE startDateAndTime = ?;";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(1, new Timestamp(startDateAndTime.getTime()));
+            rs = pstmt.executeQuery();
+            if (rs == null) {
+                System.out.println("ERROR: RS is null");
+                return null;
+            } else {
+                while(rs.next()) {
+                    if (rs.getString("inOrOut").equals("in")) {
+                        result.add(new Indoor(rs.getTimestamp("startDateAndTime"), rs.getTimestamp("endDateAndTime"), rs.getInt("personalShape"), rs.getInt("prestation"), rs.getString("note"), rs.getString("aircondition"), rs.getInt("viewers")));
+                    } else {
+                        result.add(new Outdoor(rs.getTimestamp("startDateAndTime"), rs.getTimestamp("endDateAndTime"), rs.getInt("personalShape"), rs.getInt("prestation"), rs.getString("note"), rs.getInt("temperature"), rs.getString("weather")));
+                    }
+                }
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+        return result;
+    }
 }
