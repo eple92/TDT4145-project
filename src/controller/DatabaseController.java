@@ -150,9 +150,9 @@ public class DatabaseController {
             pstmt.setTimestamp(2, new Timestamp(results.getSessionStartDateAndTime().getTime()));
             pstmt.setInt(3, results.getWeight());
             pstmt.setInt(4,results.getRep());
-            pstmt.setInt(4,results.getExerciseSet());
-            pstmt.setInt(4,results.getDistance());
-            pstmt.setInt(4,results.getDuration());
+            pstmt.setInt(5,results.getExerciseSet());
+            pstmt.setInt(6,results.getDistance());
+            pstmt.setInt(7,results.getDuration());
             pstmt.executeUpdate();
         } catch (SQLException se) {
             se.printStackTrace();
