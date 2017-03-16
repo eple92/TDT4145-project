@@ -38,10 +38,9 @@ public class InputController {
                 "1. New session \n" +
                 "2. Get best result \n" +
                 "3. See all sessions \n" +
-                "4. Add exercises to a session \n" +
-                "5. Add Results \n" +
-                "6. Setup \n" +
-                "7. Quit"
+                "4. Add Results \n" +
+                "5. Setup \n" +
+                "6. Quit"
         );
     	
     	String input;
@@ -66,16 +65,12 @@ public class InputController {
                     }
                     System.out.println();
                 }
-	    		/*manager.getDatabaseController().showTable(Session.selectAllQuery, "session");*/
-	    	} else if (input.equals("4")) {
-				System.out.println("add exercises here");
-				// TODO
-			} else if (input.equals("5")) {
+			} else if (input.equals("4")) {
 				System.out.println("add results here");
 				manager.getResultsController().addResults();
-			} else if (input.equals("6")) {
+			} else if (input.equals("5")) {
 			    manager.getSetupController().setUp();
-            } else if (input.equals("7")) {
+            } else if (input.equals("6")) {
 				System.out.println("thanks for using workoutdiary");
 				System.exit(0);
 			}
