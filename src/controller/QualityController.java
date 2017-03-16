@@ -19,12 +19,13 @@ public class QualityController {
 	}
 	
     public void getSession() throws IOException {
-        System.out.println("Do you want \n" +
-        		"1. Heaviest lift or \n" +
-                "2. Highest number of repetitions or \n" +
-                "3. Highest number of sets or \n" +
-        		"4. Longest run in distance? \n" +
-                "5. Longest run in duration?");
+        System.out.println("Choose an option: \n" +
+        		"1. Show heaviest lift\n" +
+                "2. Show highest number of repetitions\n" +
+                "3. Show highest number of sets\n" +
+        		"4. Show longest run in km\n" +
+                "5. Show longest run in minutes\n" +
+                "6. Go back to main menu");
         boolean isValidOption = false;
         while(!isValidOption){
             String input = br.readLine();
@@ -94,6 +95,9 @@ public class QualityController {
                     }
                     isValidOption = true;
                     break;
+                }
+                case "6": {
+                    return;
                 }
                 default:
                     System.out.println("This is not a valid option. Please choose a number from the list.");
