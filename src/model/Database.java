@@ -19,7 +19,7 @@ public class Database {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private String HOST_URL = "jdbc:mysql://localhost/";
 
-    private String supressSSLWarnings = "?useSSL=false";
+    private String suppressSSLWarnings = "?useSSL=false";
 
 	// Database credentials
 	private String USER = "user";
@@ -58,7 +58,7 @@ public class Database {
 
     private void connectToHost(){
 	    try{
-            conn = DriverManager.getConnection(HOST_URL + supressSSLWarnings, USER, PASS);
+            conn = DriverManager.getConnection(HOST_URL + suppressSSLWarnings, USER, PASS);
         } catch (SQLException se){
 	        System.out.println("Couldn't connect to db. Check your settings.");
 	        //se.printStackTrace();
@@ -67,7 +67,7 @@ public class Database {
 
     public  void connectToDB(){
         try{
-            conn = DriverManager.getConnection(HOST_URL + dbName + supressSSLWarnings, USER, PASS);
+            conn = DriverManager.getConnection(HOST_URL + dbName + suppressSSLWarnings, USER, PASS);
         } catch (SQLException se){
             System.out.println("Couldn't connect to db. Check your settings.");
             //se.printStackTrace();
