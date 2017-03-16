@@ -13,7 +13,7 @@ class QualityController {
     
 	private ControllerManager manager;
 
-	QualityController(ControllerManager manager) {
+	public QualityController(ControllerManager manager) {
 		this.manager = manager;
 		br = new BufferedReader(new InputStreamReader(System.in));
 	}

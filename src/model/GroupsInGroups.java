@@ -19,7 +19,11 @@ public class GroupsInGroups {
        return q;
     }
 
-    public String getParentGroup(){return parentGroup.get();}
+    public String getParentGroup(){
+    	return parentGroup.get();
+    }
 
-    public String getChildGroup(){return childGroup.get();}
+    public String getChildGroup(){
+    	return childGroup.get();
+    }
 }

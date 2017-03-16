@@ -30,7 +30,9 @@ public class Goals {
         this.duration = new SimpleIntegerProperty(duration);
     }
 
-    public String getExerciseNameString(){return exerciseName.get();}
+    public String getExerciseNameString(){
+    	return exerciseName.get();
+    }
 
     public String getGoalStartDateString(){
         if(goalStartDate == null) {
@@ -64,13 +66,23 @@ public class Goals {
         }
     }
 
-    public int getWeight(){return weight.get();}
+    public int getWeight(){
+    	return weight.get();
+    }
 
-    public int getRep(){return rep.get();}
+    public int getRep(){
+    	return rep.get();
+    }
 
-    public int getExerciseSet(){return exerciseSet.get();}
+    public int getExerciseSet(){
+    	return exerciseSet.get();
+    }
 
-    public int getDistance(){return distance.get();}
+    public int getDistance(){
+    	return distance.get();
+    }
 
-    public int getDuration(){return duration.get();}
+    public int getDuration(){
+    	return duration.get();
+    }
 }

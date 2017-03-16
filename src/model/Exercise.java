@@ -1,8 +1,5 @@
 package model;
 
-import main.MainApp;
-
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

@@ -1,6 +1,5 @@
 package model;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -29,7 +28,7 @@ public class PulsAndGPS {
 
     public String getInsertQuery(){
         String q = "Insert into Puls and GPS (dateAndTime, puls, longitude, latitude, metersAboveOcean) " +
-                "Values ('"+getDateAndTime()+"', "+getPuls()+", "+getLongitude()+", "+ getLatitude()+", "+getMetersAboveOcean()+", "+getResults_fk()+")";
+                "Values ('" + getDateAndTime() + "', " + getPuls() + ", " + getLongitude() + ", " + getLatitude()+", " + getMetersAboveOcean() + ", " + getResults_fk() + ")";
         return q;
     }
 
@@ -41,15 +40,25 @@ public class PulsAndGPS {
         }
     }
 
-    public int getPuls(){return puls.get();}
+    public int getPuls(){
+    	return puls.get();
+    }
 
-    public int getLongitude(){return longitude.get();}
+    public int getLongitude(){
+    	return longitude.get();
+    }
 
-    public int getLatitude(){return latitude.get();}
+    public int getLatitude(){
+    	return latitude.get();
+    }
 
-    public int getMetersAboveOcean(){return metersAboveOcean.get();}
+    public int getMetersAboveOcean(){
+    	return metersAboveOcean.get();
+    }
 
-    public int getResults_fk(){return  results_fk.get();}
+    public int getResults_fk(){
+    	return  results_fk.get();
+    }
 
 
 }

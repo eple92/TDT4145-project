@@ -13,7 +13,11 @@ public class ExersicesInGroups {
         this.exercise = new SimpleStringProperty(exercise);
     }
 
-    public String getParentGroup(){return parentGroup.get();}
+    public String getParentGroup(){
+    	return parentGroup.get();
+    }
 
-    public String getExersice(){return exercise.get();}
+    public String getExersice(){
+    	return exercise.get();
+    }
 }

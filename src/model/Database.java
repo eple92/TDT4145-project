@@ -30,16 +30,15 @@ public class Database {
 	// Create a database object
 	public Database() {
         readConfig();
-			try {
-				// Register JDBC driver in program 
-				Class.forName(JDBC_DRIVER).newInstance();
-			} catch (ClassNotFoundException e) {
-				System.out.println("ERROR: can't find MySQL JDBC Driver");
-				e.printStackTrace();
-			} catch (InstantiationException | IllegalAccessException ie){
-			    ie.printStackTrace();
-            }
-
+		try {
+			// Register JDBC driver in program 
+			Class.forName(JDBC_DRIVER).newInstance();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ERROR: can't find MySQL JDBC Driver");
+			e.printStackTrace();
+		} catch (InstantiationException | IllegalAccessException ie){
+		    ie.printStackTrace();
+        }
     }
 
 	public Connection getConnection(){
@@ -131,7 +130,6 @@ public class Database {
 
 	private void createTables(){
 		try{
-
 
             String query = "CREATE TABLE IF NOT EXISTS Session (" +
                     "    startDateAndTime DATETIME NOT NULL PRIMARY KEY," +
@@ -335,13 +333,10 @@ public class Database {
 
             pstmt = conn.prepareStatement(query);
             pstmt.executeUpdate();
-
-
 		} catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		}
-
 	}
 
 	private void addExercisesToDb(){

@@ -16,5 +16,7 @@ public class Groups {
         return q;
     }
 
-    public String getGroupName(){return groupName.get();}
+    public String getGroupName(){
+    	return groupName.get();
+    }
 }
