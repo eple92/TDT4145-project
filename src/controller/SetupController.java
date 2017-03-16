@@ -52,14 +52,20 @@ public class SetupController {
         try {
             while (notValidInput) {
                 input = br.readLine();
-                if (input.equals("1")){
-                    firstTimeSetUp();
-                    notValidInput = false;
-                } else if (input.equals("2")){
-                    manager.getDatabaseController().populateDatabase();
-                    notValidInput = false;
-                } else if (input.equals("3")){
-                    notValidInput = false;
+                switch (input) {
+                    case "1":
+                        firstTimeSetUp();
+                        notValidInput = false;
+                        break;
+                    case "2":
+                        manager.getDatabaseController().populateDatabase();
+                        notValidInput = false;
+                        break;
+                    case "3":
+                        return;
+                    default:
+                        System.out.println("Not a valid option. Please choose a number from the list.");
+                        break;
                 }
             }
         } catch (IOException e) {
