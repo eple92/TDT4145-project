@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -11,7 +12,7 @@ public class PulsAndGPS {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private SimpleObjectProperty dateAndTime;
+    private ObjectProperty<Date> dateAndTime;
     private SimpleIntegerProperty puls;
     private SimpleIntegerProperty longitude;
     private SimpleIntegerProperty latitude;
