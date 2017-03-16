@@ -120,7 +120,7 @@ public class DatabaseController {
         db.connectToDB();
         Connection conn = db.getConnection();
         insertSession(session, conn);
-        String q = "INSERT INTO outdooression(outdoorStartDateAndTime, temperature, weather) VALUES (?,?,?);";
+        String q = "INSERT INTO outdoorsession(outdoorStartDateAndTime, temperature, weather) VALUES (?,?,?);";
         try {
             pstmt = conn.prepareStatement(q);
             pstmt.setTimestamp(1, new Timestamp(session.getStartDate().getTime()));
