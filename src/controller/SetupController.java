@@ -24,6 +24,8 @@ public class SetupController {
             System.out.println("Enter password for your server:");
             input = br.readLine();
             props.setProperty("dbpass", input);
+            File configDir = new File("resources/");
+            configDir.mkdirs();
             try {
                 FileWriter writer = new FileWriter("resources/config.properties", false);
                 props.store(writer,"--Database Settings--");

@@ -28,6 +28,7 @@ hs_err_pid*
 .settings/
 out/
 bin/
+META-INF/
 .classpath
 .project
 TDT4145 - Databaseproject.iml
