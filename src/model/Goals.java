@@ -10,18 +10,19 @@ public class Goals {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    private StringProperty exerciseName;
     private ObjectProperty<Date> goalStartDate;
     private ObjectProperty<Date> goalEndDate;
+    private StringProperty exerciseName;
     private SimpleIntegerProperty weight;
     private SimpleIntegerProperty rep;
     private SimpleIntegerProperty exerciseSet;
     private SimpleIntegerProperty distance;
     private SimpleIntegerProperty duration;
 
-    public Goals (String exerciseName, Date goalStartDate, int weight, int rep, int exerciseSet, int distance, int duration){
-        this.exerciseName = new SimpleStringProperty(exerciseName);
+    public Goals (Date goalStartDate, Date goalEndDate, String exerciseName, int weight, int rep, int exerciseSet, int distance, int duration){
         this.goalStartDate = new SimpleObjectProperty<>(goalStartDate);
+        this.goalEndDate = new SimpleObjectProperty<>(goalEndDate);
+        this.exerciseName = new SimpleStringProperty(exerciseName);
         this.weight = new SimpleIntegerProperty(weight);
         this.rep = new SimpleIntegerProperty(rep);
         this.exerciseSet = new SimpleIntegerProperty(exerciseSet);
