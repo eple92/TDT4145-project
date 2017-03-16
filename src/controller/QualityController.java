@@ -32,7 +32,7 @@ class QualityController {
 
             switch (input) {
                 case "1": {
-                    String query = "SELECT *, MAX(weight) AS 'weight' " +
+                    String query = "SELECT exerciseName, sessionStartDateAndTime, MAX(weight) AS 'weight', rep, exerciseSet, distance, duration " +
                             "FROM Results " +
                             "GROUP BY exerciseName;";
                     List<Results> results = manager.getDatabaseController().selectResultsByQuery(query);
@@ -45,7 +45,7 @@ class QualityController {
                     break;
                 }
                 case "2": {
-                    String query = "SELECT *, MAX(rep) AS 'rep' " +
+                    String query = "SELECT exerciseName, sessionStartDateAndTime, weight, MAX(rep) AS 'rep', exerciseSet, distance, duration " +
                             "FROM Results " +
                             "GROUP BY exerciseName;";
                     List<Results> results = manager.getDatabaseController().selectResultsByQuery(query);
@@ -58,7 +58,7 @@ class QualityController {
                     break;
                 }
                 case "3": {
-                    String query = "SELECT *, MAX(exerciseSet) AS 'exerciseSet' " +
+                    String query = "SELECT exerciseName, sessionStartDateAndTime, weight, rep, MAX(exerciseSet) AS 'exerciseSet', distance, duration " +
                             "FROM Results " +
                             "GROUP BY exerciseName;";
                     List<Results> results = manager.getDatabaseController().selectResultsByQuery(query);
@@ -71,7 +71,7 @@ class QualityController {
                     break;
                 }
                 case "4": {
-                    String query = "SELECT *, MAX(distance) AS 'distance' " +
+                    String query = "SELECT exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, MAX(distance) AS 'distance', duration " +
                             "FROM Results " +
                             "GROUP BY exerciseName;";
                     List<Results> results = manager.getDatabaseController().selectResultsByQuery(query);
@@ -84,7 +84,7 @@ class QualityController {
                     break;
                 }
                 case "5": {
-                    String query = "SELECT *, MAX(duration) AS 'duration' " +
+                    String query = "SELECT exerciseName, sessionStartDateAndTime, weight, rep, exerciseSet, distance, MAX(duration) AS 'duration' " +
                             "FROM Results " +
                             "GROUP BY exerciseName;";
                     List<Results> results = manager.getDatabaseController().selectResultsByQuery(query);
