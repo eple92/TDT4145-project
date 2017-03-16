@@ -77,11 +77,13 @@ public class SessionController {
         Integer prestation = null;
 
         boolean preexistingSession = true;
+        System.out.println("Here you can add a session. Enter q to return to main menu.");
         while (preexistingSession) {
             System.out.println("When was the session (dd.mm.yy)?");
             date = null;
             while(date == null) {
                 String input = br.readLine();
+                if (input.equals("q")) {return;}
 
                 if (isValidDate(input)) {
                     date = input;
@@ -95,6 +97,7 @@ public class SessionController {
             String to = null;
             while (duration == null) {
                 String input = br.readLine();
+                if (input.equals("q")) {return;}
                 if(input.matches("([01]?[0-9]|2[0-3]):([0-5][0-9])-([01]?[0-9]|2[0-3]):([0-5][0-9])")){
                     from = input.substring(0, 5);
                     to = input.substring(6, 11);
@@ -134,6 +137,7 @@ public class SessionController {
         while (!validExerciseInput) {
             System.out.println("Which exercises did you perform? (exercise,exercise,exercise,...)");
             String input = br.readLine();
+            if (input.equals("q")) {return;}
             exercises = Arrays.asList(input.split(","));
             validExerciseInput = true;
             for (String s: exercises) {
@@ -147,6 +151,7 @@ public class SessionController {
     	System.out.println("Was it in or out?");
     	while (inOrOut == null) {
     		String input = br.readLine();
+            if (input.equals("q")) {return;}
     		if (input.equals("in") || input.equals("IN")) {
 				inOrOut = "in";
     		} else if (input.equals("out") || input.equals("OUT")) {
@@ -158,9 +163,11 @@ public class SessionController {
     	if(inOrOut.equals("in")){
 			System.out.println("How was the airconditioning?");
 			airCond = br.readLine();
+            if (airCond.equals("q")) {return;}
 			System.out.println("How many viewers?");
 			while (viewers == null) {
 				String input = br.readLine();
+                if (input.equals("q")) {return;}
 				if (input.matches("\\d{1,3}")) {
 				    viewers = Integer.parseInt(input);
 				} else {
@@ -171,6 +178,7 @@ public class SessionController {
 			System.out.println("How was the temperature?");
 			while (temp == null){
 			    String input = br.readLine();
+                if (input.equals("q")) {return;}
 			    if (input.matches("^-?\\d{1,2}")) {
 			        temp = Integer.parseInt(input);
                 } else {
@@ -179,12 +187,14 @@ public class SessionController {
             }
 			System.out.println("How was the weather?");
 			weather= br.readLine();
+            if (weather.equals("q")) {return;}
 		}
     	
     	System.out.println("What was your personal shape (1-10)?");
 
     	while (personalShape == null) {
     		String input = br.readLine();
+            if (input.equals("q")) {return;}
     		if (input.matches("\\d{1,2}")) {
     			personalShape = Integer.parseInt(input);
     			if(personalShape<1 || personalShape>10) {
@@ -199,6 +209,7 @@ public class SessionController {
        	System.out.println("What was your performance (1-10)?");
        	while (prestation == null) {
     		String input = br.readLine();
+            if (input.equals("q")) {return;}
     		if (input.matches("\\d{1,2}")) {
     			prestation = Integer.parseInt(input);
     			if (prestation<1 || prestation>10){
@@ -212,6 +223,7 @@ public class SessionController {
        	
     	System.out.println("Any notes to the session?");
     	String note = br.readLine();
+        if (note.equals("q")) {return;}
 
     	System.out.println("You are saying that you exercised the " + date + 
     			" at " + duration + ", and you personal shape was " + personalShape +
@@ -220,11 +232,10 @@ public class SessionController {
     
     	while (notValidAnswer) {
     		String input = br.readLine();
+            if (input.equals("q")) {return;}
 	    	if (input.equals("y")) {
 
 	    		if ((start != null) & (end != null)) {
-	    			// If in
-	    			
 	    			if (inOrOut.equals("in")) {
 	    				Indoor indoor = new Indoor(start, end, personalShape, prestation, note, airCond, viewers);
 	    				manager.getDatabaseController().insertIndoorSession(indoor, exercises);
