@@ -3,10 +3,15 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import model.Exercise;
 import model.Indoor;
 import model.Outdoor;
 
@@ -24,7 +29,7 @@ public class SessionController {
 		this.manager = manager;
 	}
 
-	boolean isValidDate(String date) {
+	private boolean isValidDate(String date) {
 		if (date.matches("\\d{2}.\\d{2}.\\d{2}")) {
 			try {
 				dateFormatter.setLenient(false);
@@ -37,6 +42,14 @@ public class SessionController {
 			return false;
 		}
 	}
+
+    private boolean isValidExercise(String exercise){
+        ArrayList<Exercise> getExercise = manager.getDatabaseController().selectExercise(exercise);
+        if (getExercise == null || getExercise.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 	
 	
 	public void addSession() throws IOException {
@@ -76,6 +89,22 @@ public class SessionController {
 				System.out.println("The time to and/or from does not match the format hh:mm-hh:mm or is not valid. Try again.");
 			}
     	}
+
+
+        List<String> exercises = null;
+        boolean validExerciseInput = false;
+        while (!validExerciseInput) {
+            System.out.println("Which exercises did you perform? (exercise,exercise,exercise,...)");
+            String input = br.readLine();
+            exercises = Arrays.asList(input.split(","));
+            validExerciseInput = true;
+            for (String s: exercises) {
+                if(!isValidExercise(s)){
+                    System.out.println(s + " is not a valid exercise.");
+                    validExerciseInput = false;
+                }
+            }
+        }
     	
     	System.out.println("Was it in or out?");
     	String inOrOut = null;
@@ -170,7 +199,7 @@ public class SessionController {
 	    			
 	    			if (inOrOut.equals("in")) {
 	    				Indoor indoor = new Indoor(start, end, ps, prest, note, airCond, v);
-	    				manager.getDatabaseController().insertIndoorSession(indoor);
+	    				manager.getDatabaseController().insertIndoorSession(indoor, exercises);
 	    				/*String sessionInsertQuery = indoor.getInsertQuery();
 	    				String indoorInsertQuery = indoor.getIndoorInserQuery();
 						System.out.println(indoor.getStartDate());
@@ -179,7 +208,7 @@ public class SessionController {
 	    				
 	    			} else if (inOrOut.equals("out")) {
 	    				Outdoor outdoor = new Outdoor(start, end, ps, prest, note, t, weather);
-	    				manager.getDatabaseController().insertOutdoorSession(outdoor);
+	    				manager.getDatabaseController().insertOutdoorSession(outdoor, exercises);
 	    				/*String sessionInsertQuery = outdoor.getInsertQuery();
 	    				String outdoorInsertQuery = outdoor.getOutdoorInserQuery();
 	    				manager.getDatabaseController().insertAction(sessionInsertQuery);

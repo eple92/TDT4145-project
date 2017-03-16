@@ -4,6 +4,8 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import model.*;
 
@@ -27,12 +29,13 @@ public class DatabaseController {
 
         public void populateDatabase() {
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+            List<String> exercises = Arrays.asList("Arm Circles", "Squat", "Ab roller", "Benchpress", "Running", "Jogging");
 
             try{
-                insertIndoorSession(new Indoor(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"),8, 9, "Note", "", 0));
-                insertIndoorSession(new Indoor(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"),8, 9, "Note", "", 0));
-                insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0));
-                insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0));
+                insertIndoorSession(new Indoor(formatter.parse("12.12.15 12:00:00"), formatter.parse("12.12.15 13:00:00"), 8, 9, "Note", "", 0),exercises);
+                insertIndoorSession(new Indoor(formatter.parse("11.12.15 12:00:00"),formatter.parse("121.12.15 13:00:00"),8, 9, "Note", "", 0),exercises);
+                insertIndoorSession(new Indoor(formatter.parse("8.2.15 12:00:00"), formatter.parse("8.2.15 13:00:00"),8, 9, "Note", "", 0), exercises);
+                insertIndoorSession(new Indoor(formatter.parse("4.8.15 12:00:00"), formatter.parse("4.8.15 12:00:00"),8, 9, "Note", "", 0), exercises);
 
                 insertResults(new Results("Arm Circles", formatter.parse("12.12.15 12:00:00"), 80, 4, 4, 0, 0));
                 insertResults(new Results("Squat", formatter.parse("12.12.15 12:00:00"), 70, 4, 4, 0, 0));
@@ -65,7 +68,9 @@ public class DatabaseController {
 			return db.select(query, type);
 		}
 
-		private void insertSession(Session session, Connection conn) {
+		private void insertSession(Session session, List<String> exercises) {
+            db.connectToDB();
+            Connection conn = db.getConnection();
 		    String q = "INSERT INTO Session(startDateAndTime, endDateAndTime, inOrOut, personalShape, prestation, note) VALUES (?,?,?,?,?,?);";
 		    try {
                 pstmt = conn.prepareStatement(q);
@@ -86,12 +91,38 @@ public class DatabaseController {
                     se.printStackTrace();
                 }
             }
+            db.closeConnection();
+		    insertSessionExercises(session, exercises);
         }
 
-        public void insertIndoorSession(Indoor session){
+    private void insertSessionExercises(Session session, List<String> exercises) {
+        db.connectToDB();
+        Connection conn = db.getConnection();
+        String q = "INSERT INTO SessionExercises(exerciseName, sessionStartDateAndTime) VALUES (?,?);";
+        try {
+            pstmt = conn.prepareStatement(q);
+            pstmt.setTimestamp(2, new Timestamp(session.getStartDate().getTime()));
+            for (String exercise: exercises) {
+                pstmt.setString(1,exercise);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try{
+                if(this.pstmt != null)
+                    this.pstmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        db.closeConnection();
+    }
+
+        public void insertIndoorSession(Indoor session, List<String> exercises){
+            insertSession(session, exercises);
             db.connectToDB();
             Connection conn = db.getConnection();
-            insertSession(session, conn);
             String q = "INSERT INTO indoorsession(indoorStartDateAndTime, aircondition, viewers) VALUES (?,?,?);";
             try {
                 pstmt = conn.prepareStatement(q);
@@ -113,10 +144,10 @@ public class DatabaseController {
 
         }
 
-    public void insertOutdoorSession(Outdoor session){
+    public void insertOutdoorSession(Outdoor session, List<String> exercises){
+        insertSession(session, exercises);
         db.connectToDB();
         Connection conn = db.getConnection();
-        insertSession(session, conn);
         String q = "INSERT INTO outdoorsession(outdoorStartDateAndTime, temperature, weather) VALUES (?,?,?);";
         try {
             pstmt = conn.prepareStatement(q);
@@ -136,6 +167,8 @@ public class DatabaseController {
         }
         db.closeConnection();
     }
+
+
 
     public void insertResults(Results results){
         db.connectToDB();
